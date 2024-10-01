@@ -6,6 +6,12 @@ Install dependencies:
 npm install
 ```
 
+Add .env file to project:
+
+```
+refer to '.env.example' in project root
+```
+
 Run the development server:
 
 ```bash
