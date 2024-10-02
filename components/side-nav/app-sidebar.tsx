@@ -35,14 +35,15 @@ const testData = {
 };
 
 export function AppSidebar({
-  data,
+  user,
+  nav,
 }: {
-  data: {
-    user: {
-      name: string;
-      email: string;
-    };
-    navMain: {
+  user: {
+    username: string;
+    email: string;
+  };
+  nav: {
+    main: {
       title: string;
       url: string;
       icon: LucideIcon;
@@ -52,7 +53,7 @@ export function AppSidebar({
         url: string;
       }[];
     }[];
-    navSecondary: {
+    secondary: {
       title: string;
       url: string;
       icon: LucideIcon;
@@ -72,16 +73,16 @@ export function AppSidebar({
       <SidebarContent>
         <SidebarItem>
           <SidebarLabel>Platform</SidebarLabel>
-          <NavMain items={data.navMain} />
+          <NavMain items={nav.main} />
         </SidebarItem>
         <SidebarItem className="mt-auto">
           {/* Might use down the line */}
           <SidebarLabel>Help</SidebarLabel>
-          <NavSecondary items={data.navSecondary} />
+          <NavSecondary items={nav.secondary} />
         </SidebarItem>
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   );

@@ -17,12 +17,8 @@ import {
   Turtle,
 } from "lucide-react";
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-  },
-  navMain: [
+const nav = {
+  main: [
     {
       title: "Playground",
       url: "#",
@@ -148,7 +144,7 @@ const data = {
       ],
     },
   ],
-  navSecondary: [
+  secondary: [
     {
       title: "Support",
       url: "#",
@@ -162,6 +158,13 @@ const data = {
   ],
 };
 
-export function AdminSidebar() {
-  return <AppSidebar data={data} />;
+export function AdminSidebar({
+  user,
+}: {
+  user: {
+    username: string;
+    email: string;
+  };
+}) {
+  return <AppSidebar user={user} nav={nav} />;
 }

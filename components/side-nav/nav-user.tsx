@@ -16,7 +16,7 @@ export function NavUser({
   user,
 }: {
   user: {
-    name: string;
+    username: string;
     email: string;
   };
 }) {
@@ -26,11 +26,11 @@ export function NavUser({
         <div className="flex items-center gap-2 px-2 py-1.5 text-left text-sm transition-all">
           <Avatar className="h-7 w-7 rounded-md border">
             <AvatarFallback className="rounded-md">
-              {user.name.substring(0, 2).toUpperCase()}
+              {user.username.substring(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <div className="grid flex-1 leading-none">
-            <div className="font-medium">{user.name}</div>
+            <div className="font-medium">{user.username}</div>
             <div className="overflow-hidden text-xs text-neutral-500 dark:text-neutral-400">
               <div className="line-clamp-1">{user.email}</div>
             </div>
@@ -48,11 +48,11 @@ export function NavUser({
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm transition-all">
             <Avatar className="h-7 w-7 rounded-md">
               <AvatarFallback>
-                {user.name.substring(0, 2).toUpperCase()}
+                {user.username.substring(0, 2).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div className="grid flex-1">
-              <div className="font-medium">{user.name}</div>
+              <div className="font-medium">{user.username}</div>
               <div className="overflow-hidden text-xs text-neutral-500 dark:text-neutral-400">
                 <div className="line-clamp-1">{user.email}</div>
               </div>

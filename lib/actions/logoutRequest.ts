@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { deleteToken, getToken } from "../token";
+import { deleteSession, getToken } from "../session";
 
 export async function logoutRequest() {
   let success = false;
@@ -11,12 +11,12 @@ export async function logoutRequest() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: getToken() as string,
+        Authorization: getToken(),
       },
     });
 
     if (response.ok) {
-      deleteToken();
+      deleteSession();
       success = true;
     }
   } catch (error) {

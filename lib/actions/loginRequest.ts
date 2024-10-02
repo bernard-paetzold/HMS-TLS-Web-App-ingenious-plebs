@@ -1,8 +1,8 @@
 "use server";
 
 import { z } from "zod";
-import { setToken } from "../token";
 import { redirect } from "next/navigation";
+import { setSession } from "../session";
 
 type LoginResponse = {
   errors: {
@@ -36,6 +36,7 @@ export async function loginRequest(
   }
 
   let success = false;
+  let role = "";
 
   try {
     const response = await fetch(`${process.env.BACKEND_URL}/auth/login/`, {
@@ -49,8 +50,50 @@ export async function loginRequest(
     const data = await response.json();
 
     if (response.ok) {
-      setToken(data.token);
-      success = true;
+      const newResponse = await fetch(
+        `${process.env.BACKEND_URL}/users/edit/`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${data.token}`,
+          },
+        }
+      );
+
+      const newData = await newResponse.json();
+
+      if (newResponse.ok) {
+        // Students are denied access
+        if (newData.role === "student") {
+          await fetch(`${process.env.BACKEND_URL}/auth/logout/`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Token ${data.token}`,
+            },
+          });
+          return {
+            errors: {
+              other: "Students may not use this service",
+            },
+          };
+        }
+
+        setSession(data.token, {
+          id: newData.id,
+          username: newData.username,
+          firstName: newData.first_name,
+          lastName: newData.last_name,
+          email: newData.email,
+          role: newData.role,
+        });
+        success = true;
+        role = newData.role;
+      } else {
+        // Unexpected error occured
+        throw Error(JSON.stringify(newData));
+      }
     } else if (response.status === 400) {
       return {
         errors: {
@@ -69,7 +112,14 @@ export async function loginRequest(
       },
     };
   } finally {
-    // Invokes middleware to redirect user to correct dashboard
-    if (success) redirect("/login");
+    if (success) {
+      redirect(
+        role === "admin"
+          ? "/admin/dashboard"
+          : role === "lecturer"
+          ? "/dashboard"
+          : "/login"
+      );
+    }
   }
 }
