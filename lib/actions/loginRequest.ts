@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { setToken } from "../auth";
+import { setToken } from "../token";
 import { redirect } from "next/navigation";
 
 type LoginResponse = {
@@ -35,6 +35,8 @@ export async function loginRequest(
     };
   }
 
+  let success = false;
+
   try {
     const response = await fetch(`${process.env.BACKEND_URL}/auth/login/`, {
       method: "POST",
@@ -48,6 +50,7 @@ export async function loginRequest(
 
     if (response.ok) {
       setToken(data.token);
+      success = true;
     } else if (response.status === 400) {
       return {
         errors: {
@@ -67,6 +70,6 @@ export async function loginRequest(
     };
   } finally {
     // Invokes middleware to redirect user to correct dashboard
-    redirect("/login");
+    if (success) redirect("/login");
   }
 }

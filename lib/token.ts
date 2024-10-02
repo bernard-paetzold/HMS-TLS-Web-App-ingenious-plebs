@@ -5,7 +5,7 @@ export function setToken(token: string) {
     name: "token",
     value: `Token ${token}`,
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV !== "development",
     maxAge: 7200,
   });
 }
