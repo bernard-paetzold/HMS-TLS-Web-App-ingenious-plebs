@@ -1,19 +1,13 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-/* 
-  At the momement the middleware requests the user's info on every route
-  to validate whether or not they have access to that route. This serves
-  the purpose and will not hinder us in development but should be optimized
-  for production.
-*/
-
 export async function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value;
+  const sessionCookie = request.cookies.get("user-session")?.value;
   const url = request.nextUrl.clone();
 
-  // Allow users without a token to access the login page or redirect to login if necessary
-  if (!token) {
+  // Allow users without a session to access the login page or redirect to login if necessary
+  // Students will never have a session
+  if (!sessionCookie) {
     if (url.pathname === "/login") {
       return NextResponse.next();
     }
@@ -21,58 +15,51 @@ export async function middleware(request: NextRequest) {
   }
 
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/users/edit/`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
+    const session = JSON.parse(sessionCookie);
+    const role = session.user.role;
 
-    // Request failed, redirect to login and delete cookie
-    if (!response.ok) {
-      const res = NextResponse.redirect(new URL("/login", request.url));
-      res.cookies.delete("token");
-      return res;
-    }
-
-    // User authenticated
-    const user = await response.json();
+    // Prematurely check if user can access certain routes based on role to avoid hitting the DB multiple times
 
     // If the user is visiting the login page, redirect them to their respective dashboard
     if (["/", "/login"].includes(url.pathname)) {
-      if (user.role === "admin") {
+      if (role === "admin") {
         return NextResponse.redirect(new URL("/admin/dashboard", request.url));
       }
-      if (user.role === "lecturer") {
+      if (role === "lecturer") {
         return NextResponse.redirect(new URL("/dashboard", request.url));
-      }
-      // Students should be denied access
-      if (user.role === "student") {
-        await fetch(`${process.env.BACKEND_URL}/auth/logout/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        });
-        const res = NextResponse.redirect(new URL("/login", request.url));
-        res.cookies.delete("token");
-        return res;
       }
     }
 
     // Ensure admins are redirected to the admin dashboard if visiting non-admin dashboard or root url
     if (
-      user.role === "admin" &&
+      role === "admin" &&
       (url.pathname.startsWith("/dashboard") || url.pathname === "/admin")
     ) {
       return NextResponse.redirect(new URL("/admin/dashboard", request.url));
     }
 
-    // Non-admins accessing admin routes are redirected to the general dashboard
-    if (user.role !== "admin" && url.pathname.startsWith("/admin")) {
+    // Lecturers accessing admin routes are redirected to the general dashboard
+    if (role === "lecturer" && url.pathname.startsWith("/admin")) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+
+    // User allowed on route -> Check token validity
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/auth/check-token/`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: session.token,
+        },
+      }
+    );
+
+    // Token invalid, redirect to login and delete cookie
+    if (!response.ok) {
+      const res = NextResponse.redirect(new URL("/login", request.url));
+      res.cookies.delete("user-session");
+      return res;
     }
 
     return NextResponse.next();
