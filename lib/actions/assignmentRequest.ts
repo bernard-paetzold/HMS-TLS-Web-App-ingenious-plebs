@@ -26,16 +26,6 @@ export async function assignmentRequest(): Promise<assignment[]> {
   }
 }
 
-type AssignmentIDResponse = {
-  errors: {
-    fields?: {
-      assignment_id?: number | undefined;
-    };
-    credentials?: string;
-    other?: string;
-  };
-};
-
 export async function getAssignmentById(
   id: number,
 ): Promise<assignment | null> {
