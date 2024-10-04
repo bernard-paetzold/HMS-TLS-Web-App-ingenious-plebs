@@ -3,22 +3,22 @@
 import { AppSidebar } from "../side-nav/app-sidebar";
 
 import {
-  Bird,
-  BookOpen,
-  Bot,
-  Code2,
   History,
   LifeBuoy,
-  Rabbit,
   Send,
   Settings2,
   SquareTerminal,
   Star,
-  Turtle,
 } from "lucide-react";
 
 const nav = {
   main: [
+    {
+      title: "Home",
+      url: "/home",
+      icon: SquareTerminal,
+      isActive: true,
+    },
     {
       title: "My Assignments",
       url: "#",
@@ -26,19 +26,19 @@ const nav = {
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "Open",
+          url: "/home/assignments",
           icon: History,
           description: "View your recent prompts",
         },
         {
-          title: "Starred",
+          title: "Closed",
           url: "#",
           icon: Star,
           description: "Browse your starred prompts",
         },
         {
-          title: "Settings",
+          title: "History",
           url: "#",
           icon: Settings2,
           description: "Configure your playground",
