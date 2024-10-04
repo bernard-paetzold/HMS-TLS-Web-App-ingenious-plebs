@@ -26,21 +26,21 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL("/admin/dashboard", request.url));
       }
       if (role === "lecturer") {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
+        return NextResponse.redirect(new URL("/home", request.url));
       }
     }
 
     // Ensure admins are redirected to the admin dashboard if visiting non-admin dashboard or root url
     if (
       role === "admin" &&
-      (url.pathname.startsWith("/dashboard") || url.pathname === "/admin")
+      (url.pathname.startsWith("/home") || url.pathname === "/admin")
     ) {
       return NextResponse.redirect(new URL("/admin/dashboard", request.url));
     }
 
     // Lecturers accessing admin routes are redirected to the general dashboard
     if (role === "lecturer" && url.pathname.startsWith("/admin")) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
+      return NextResponse.redirect(new URL("/home", request.url));
     }
 
     // User allowed on route -> Check token validity
