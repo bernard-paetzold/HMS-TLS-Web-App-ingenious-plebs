@@ -3,142 +3,96 @@
 import { AppSidebar } from "../side-nav/app-sidebar";
 
 import {
-  Bird,
   BookOpen,
-  Bot,
-  Code2,
-  History,
   LifeBuoy,
-  Rabbit,
   Send,
   Settings2,
   SquareTerminal,
-  Star,
-  Turtle,
+  User,
+  Clapperboard,
 } from "lucide-react";
 
+const rootURL = "/admin/dashboard";
 const nav = {
   main: [
     {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
+      title: "Users",
+      url: `${rootURL}/users`,
+      icon: User,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "View",
           url: "#",
-          icon: History,
-          description: "View your recent prompts",
+          // icon: History,
+          description: "View users",
         },
         {
-          title: "Starred",
+          title: "Add",
           url: "#",
-          icon: Star,
-          description: "Browse your starred prompts",
-        },
-        {
-          title: "Settings",
-          url: "#",
-          icon: Settings2,
-          description: "Configure your playground",
+          // icon: History,
+          description: "Create users",
         },
       ],
     },
     {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-          icon: Rabbit,
-          description: "Our fastest model for general use cases.",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-          icon: Bird,
-          description: "Performance and speed for efficiency.",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-          icon: Turtle,
-          description: "The most powerful model for complex computations.",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
+      title: "Assignments",
+      url: `${rootURL}/assignments`,
       icon: BookOpen,
       items: [
         {
-          title: "Introduction",
+          title: "View",
           url: "#",
+          // icon: History,
+          description: "View assignments",
         },
         {
-          title: "Get Started",
+          title: "Add",
           url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
+          // icon: History,
+          description: "Create an assignment",
         },
       ],
     },
     {
-      title: "API",
-      url: "#",
-      icon: Code2,
+      title: "Submissions",
+      url: `${rootURL}/submissions`,
+      icon: Clapperboard,
       items: [
         {
-          title: "Chat",
+          title: "View",
           url: "#",
+          // icon: History,
+          description: "View submissions",
         },
         {
-          title: "Completion",
+          title: "Add",
           url: "#",
+          // icon: History,
+          description: "Create a submission",
         },
+      ],
+    },
+    {
+      title: "Logs",
+      url: `${rootURL}/logs`,
+      icon: SquareTerminal,
+      items: [
         {
-          title: "Images",
+          title: "View",
           url: "#",
-        },
-        {
-          title: "Video",
-          url: "#",
-        },
-        {
-          title: "Speech",
-          url: "#",
+          // icon: History,
+          description: "View logs",
         },
       ],
     },
     {
       title: "Settings",
-      url: "#",
+      url: `${rootURL}/settings`,
       icon: Settings2,
       items: [
         {
           title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
           url: "#",
         },
       ],
