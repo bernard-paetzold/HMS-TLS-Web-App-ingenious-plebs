@@ -29,7 +29,7 @@ const nav = {
         },
         {
           title: "Add",
-          url: "#",
+          url: `${rootURL}/users/add`,
           // icon: History,
           description: "Create users",
         },
