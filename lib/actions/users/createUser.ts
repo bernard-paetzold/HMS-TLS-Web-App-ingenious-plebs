@@ -21,8 +21,7 @@ type CreateResponse = {
       role?: string[] | undefined;
       password?: string[] | undefined;
     };
-    authorization?: string;
-    other?: string;
+    detail?: string;
   };
 };
 
@@ -92,24 +91,21 @@ export async function createUser(formData: FormData): Promise<CreateResponse> {
     } else if (response.status === 400 && data.username) {
       return {
         errors: {
-          other: data.username[0],
-        },
-      };
-    } else if (response.status === 401) {
-      return {
-        errors: {
-          authorization: data.detail,
+          detail: data.username[0],
         },
       };
     } else {
-      // Unexpected error occured
-      throw Error(JSON.stringify(data));
+      return {
+        errors: {
+          detail: data.detail,
+        },
+      };
     }
   } catch (error) {
     console.log(error);
     return {
       errors: {
-        other: "An unexpected error occured",
+        detail: "An unexpected error occured",
       },
     };
   }

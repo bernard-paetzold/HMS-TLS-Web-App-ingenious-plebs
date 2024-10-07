@@ -28,16 +28,14 @@ type FormErrors = {
     role?: string[] | undefined;
     password?: string[] | undefined;
   } | null;
-  authorization: string | null;
-  other: string | null;
+  detail: string | null;
 };
 
 export default function AddUserForm() {
   const [isLoading, setIsLoading] = useState(false);
   const noFormErrors = {
     fields: null,
-    authorization: null,
-    other: null,
+    detail: null,
   };
   const [formErrors, setFormErrors] = useState<FormErrors>(noFormErrors);
   const [role, setRole] = useState("");
@@ -82,9 +80,7 @@ export default function AddUserForm() {
       <CardHeader>
         <CardTitle>Add a user</CardTitle>
         <CardDescription>Enter the required details</CardDescription>
-        {(formErrors.authorization || formErrors.other) && (
-          <FormError>{formErrors.authorization || formErrors.other}</FormError>
-        )}
+        {formErrors.detail && <FormError>{formErrors.detail}</FormError>}
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit}>
