@@ -10,8 +10,7 @@ type LoginResponse = {
       username?: string[] | undefined;
       password?: string[] | undefined;
     };
-    credentials?: string;
-    other?: string;
+    detail?: string;
   };
 };
 
@@ -75,7 +74,7 @@ export async function loginRequest(
           });
           return {
             errors: {
-              other: "Students may not use this service",
+              detail: "Students may not use this service",
             },
           };
         }
@@ -97,7 +96,7 @@ export async function loginRequest(
     } else if (response.status === 400) {
       return {
         errors: {
-          credentials: data.non_field_errors[0],
+          detail: data.non_field_errors[0],
         },
       };
     } else {
@@ -108,7 +107,7 @@ export async function loginRequest(
     console.log(error);
     return {
       errors: {
-        other: "An unexpected error occured",
+        detail: "An unexpected error occured",
       },
     };
   } finally {

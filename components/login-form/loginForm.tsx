@@ -13,22 +13,21 @@ import { Label } from "@/components/ui/label";
 
 import { loginRequest } from "@/lib/actions/loginRequest";
 import { BaseSyntheticEvent, useState } from "react";
+import { FormError } from "../ui/form-error";
 
 type FormErrors = {
   fields: {
     username?: string[] | undefined;
     password?: string[] | undefined;
   } | null;
-  credentials: string | null;
-  other: string | null;
+  detail: string | null;
 };
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const noFormErrors = {
     fields: null,
-    credentials: null,
-    other: null,
+    detail: null,
   };
   const [formErrors, setFormErrors] = useState<FormErrors>(noFormErrors);
 
@@ -57,14 +56,7 @@ export default function LoginForm() {
       <CardHeader>
         <CardTitle>Login</CardTitle>
         <CardDescription>
-          {formErrors.credentials && (
-            <span className="block text-red-500 mb-1">
-              {formErrors.credentials}*
-            </span>
-          )}
-          {formErrors.other && (
-            <span className="block text-red-500 mb-1">{formErrors.other}*</span>
-          )}
+          {formErrors.detail && <FormError>{formErrors.detail}</FormError>}
           Enter your username below to login to your account
         </CardDescription>
       </CardHeader>
@@ -74,9 +66,7 @@ export default function LoginForm() {
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="username">Username</Label>
               {formErrors.fields?.username && (
-                <span className="text-red-500">
-                  {formErrors.fields?.username[0]}*
-                </span>
+                <FormError>{formErrors.fields?.username[0]}*</FormError>
               )}
               <Input
                 id="username"
@@ -89,9 +79,7 @@ export default function LoginForm() {
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
               {formErrors.fields?.password && (
-                <span className="text-red-500">
-                  {formErrors.fields?.password[0]}*
-                </span>
+                <FormError>{formErrors.fields?.password[0]}*</FormError>
               )}
               <Input
                 id="password"
