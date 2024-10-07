@@ -1,15 +1,6 @@
 import { assignment, submission } from "@/lib/definitions";
 import { getAssignmentById } from "@/lib/actions/assignmentRequest";
 
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Divider,
-  Link,
-} from "@nextui-org/react";
-import { truncateText } from "@/lib/utils";
 import { getSubmissionByAssignmentId } from "@/lib/actions/submissionRequests";
 import { SubmissionCard } from "@/components/home-page/cards";
 

@@ -1,8 +1,6 @@
-import { assignment, submission } from "@/lib/definitions";
-import { getAssignmentById } from "@/lib/actions/assignmentRequest";
-
-import { SubmissionCard } from "@/components/home-page/cards";
+import { submission } from "@/lib/definitions";
 import { getSubmissionById } from "@/lib/actions/submissionRequests";
+import Video from "next-video";
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -21,6 +19,8 @@ export default async function Page({ params }: { params: { id: number } }) {
     return <div>Assignment not found</div>;
   }
 
+  const videoStream = `/api/video/${submission.id}`;
+
   return (
     <main className="container mx-auto px-4">
       <h1 className="text-2xl font-bold mb-6">{submission.id}</h1>
@@ -28,6 +28,9 @@ export default async function Page({ params }: { params: { id: number } }) {
         <div>
           <p>Submission date: {formatDate(submission.datetime)}</p>
           <p>File: {submission.file}</p>
+        </div>
+        <div>
+          <Video src={videoStream} />
         </div>
         <div className="comment">
           <p>{submission.comment}</p>
