@@ -99,7 +99,7 @@ export default function AddUserForm() {
                 name="username"
                 type="text"
                 required={true}
-                placeholder="AdSandles"
+                placeholder="14343826"
               />
             </div>
             <div className="flex flex-col space-y-1.5">

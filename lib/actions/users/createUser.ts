@@ -32,7 +32,10 @@ const passwordValidation = new RegExp(
 
 export async function createUser(formData: FormData): Promise<CreateResponse> {
   const schema = z.object({
-    username: z.string().min(1, { message: "Must have at least 1 character" }),
+    username: z
+      .string()
+      .length(8, { message: "Must be 8 digits" })
+      .regex(/^\d{8}$/, { message: "Must contain only digits" }),
     first_name: z
       .string()
       .min(1, { message: "Must have at least 1 character" }),
