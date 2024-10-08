@@ -10,6 +10,7 @@ type GetResponse = {
     lastName: string;
     email: string;
     role: string;
+    isActive: boolean;
   };
   errors?: {
     detail?: string;
@@ -40,6 +41,7 @@ export async function getOtherUser(username: string): Promise<GetResponse> {
           lastName: data.last_name,
           email: data.email,
           role: data.role,
+          isActive: data.is_active,
         },
       };
     } else {

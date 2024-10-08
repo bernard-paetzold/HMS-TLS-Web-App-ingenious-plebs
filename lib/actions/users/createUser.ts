@@ -11,6 +11,7 @@ type CreateResponse = {
     lastName: string;
     email: string;
     role: string;
+    isActive: boolean;
   };
   errors?: {
     fields?: {
@@ -86,6 +87,7 @@ export async function createUser(formData: FormData): Promise<CreateResponse> {
           lastName: data.last_name,
           email: data.email,
           role: data.role,
+          isActive: data.is_active,
         },
       };
     } else if (response.status === 400 && data.username) {
