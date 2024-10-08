@@ -1,23 +1,17 @@
 "use server";
 
+import { User } from "@/components/admin-dashboard/types";
 import { getToken } from "@/lib/session";
+import { revalidatePath } from "next/cache";
 
-type GetResponse = {
-  user?: {
-    id: number;
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    role: string;
-    isActive: boolean;
-  };
+type Response = {
+  user?: User;
   errors?: {
     detail?: string;
   };
 };
 
-export async function getOtherUser(username: string): Promise<GetResponse> {
+export async function getOtherUser(username: string): Promise<Response> {
   try {
     const response = await fetch(
       `${process.env.BACKEND_URL}/users/edit/${username}/`,
@@ -33,6 +27,7 @@ export async function getOtherUser(username: string): Promise<GetResponse> {
     const data = await response.json();
 
     if (response.ok) {
+      revalidatePath("/admin/dashboard/edit/[username]", "page");
       return {
         user: {
           id: data.id,

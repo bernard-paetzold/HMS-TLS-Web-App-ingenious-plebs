@@ -4,7 +4,7 @@ import { z } from "zod";
 import { redirect } from "next/navigation";
 import { setSession } from "../session";
 
-type LoginResponse = {
+type Response = {
   errors: {
     fields?: {
       username?: string[] | undefined;
@@ -16,7 +16,7 @@ type LoginResponse = {
 
 export async function loginRequest(
   formData: FormData
-): Promise<LoginResponse | undefined> {
+): Promise<Response | undefined> {
   const schema = z.object({
     username: z.string().min(1, { message: "Must have at least 1 character" }),
     password: z.string().min(1, { message: "Must have at least 1 character" }),
@@ -86,6 +86,7 @@ export async function loginRequest(
           lastName: newData.last_name,
           email: newData.email,
           role: newData.role,
+          isActive: newData.is_active,
         });
         success = true;
         role = newData.role;

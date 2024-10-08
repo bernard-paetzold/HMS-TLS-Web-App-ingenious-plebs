@@ -1,13 +1,5 @@
+import { User } from "@/components/admin-dashboard/types";
 import { cookies } from "next/headers";
-
-type User = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  role: string;
-};
 
 type Session = {
   token: string;

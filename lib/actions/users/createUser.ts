@@ -1,36 +1,19 @@
 "use server";
 
+import { User, UserFieldErrors } from "@/components/admin-dashboard/types";
 import { getToken } from "@/lib/session";
 import { z } from "zod";
 
-type CreateResponse = {
-  user?: {
-    id: number;
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    role: string;
-    isActive: boolean;
-  };
-  errors?: {
-    fields?: {
-      username?: string[] | undefined;
-      firstName?: string[] | undefined;
-      lastName?: string[] | undefined;
-      email?: string[] | undefined;
-      role?: string[] | undefined;
-      password?: string[] | undefined;
-    };
-    detail?: string;
-  };
+type Response = {
+  user?: User;
+  errors?: UserFieldErrors;
 };
 
 const passwordValidation = new RegExp(
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 );
 
-export async function createUser(formData: FormData): Promise<CreateResponse> {
+export async function createUser(formData: FormData): Promise<Response> {
   const schema = z.object({
     username: z
       .string()

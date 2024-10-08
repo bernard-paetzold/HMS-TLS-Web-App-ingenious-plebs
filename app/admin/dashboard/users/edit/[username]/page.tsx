@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
   CardFooter,
@@ -11,6 +10,7 @@ import Link from "next/link";
 
 import { getOtherUser } from "@/lib/actions/users/getOtherUser";
 import { Suspense } from "react";
+import EditUserForm from "@/components/admin-dashboard/users/edit-user-form";
 
 export default async function Page({
   params,
@@ -19,13 +19,13 @@ export default async function Page({
 }) {
   return (
     <Suspense fallback={<FallBack />}>
-      <UserWrapper username={params.username} />
+      <EditFormWrapper username={params.username} />
     </Suspense>
   );
 }
 
-// Display either error message or user's info
-async function UserWrapper({ username }: { username: string }) {
+// Display either error message or form prefilled with user's data
+async function EditFormWrapper({ username }: { username: string }) {
   const data = await getOtherUser(username);
 
   if (data.errors) {
@@ -45,34 +45,7 @@ async function UserWrapper({ username }: { username: string }) {
 
   const user = data.user!;
 
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Username: {username}</CardTitle>
-        <CardDescription>View user&apos;s information</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="rounded-md border-l-4 border-blue-400 bg-neutral-50 p-2 shadow">
-          <ul className="flex flex-col gap-1 text-lg">
-            <li>ID: {user.id}</li>
-            <li>Username: {user.username}</li>
-            <li>First name: {user.firstName}</li>
-            <li>Last name: {user.lastName}</li>
-            <li>Email: {user.email}</li>
-            <li>Role: {user.role}</li>
-            <li>Activated: {user.isActive ? "Yes" : "No"}</li>
-          </ul>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button className="mr-2" asChild>
-          <Link href={`/admin/dashboard/users/edit/${user.username}`}>
-            Edit user
-          </Link>
-        </Button>
-      </CardFooter>
-    </Card>
-  );
+  return <EditUserForm user={user} />;
 }
 
 function FallBack() {

@@ -8,12 +8,17 @@ type Response = {
   };
 };
 
-export async function deleteUser(username: string): Promise<Response> {
+export async function setActive(
+  username: string,
+  setActive: boolean
+): Promise<Response> {
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/users/delete/${username}/`,
+      `${process.env.BACKEND_URL}/users/${
+        setActive ? "activate" : "deactivate"
+      }/${username}/`,
       {
-        method: "DELETE",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: getToken(),
