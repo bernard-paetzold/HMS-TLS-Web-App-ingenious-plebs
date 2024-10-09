@@ -43,7 +43,7 @@ async function UserWrapper({ username }: { username: string }) {
     );
   }
 
-  const user = data.user!;
+  const user = data.user;
 
   return (
     <Card>

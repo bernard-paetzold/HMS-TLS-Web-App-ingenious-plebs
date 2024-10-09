@@ -43,7 +43,7 @@ async function EditFormWrapper({ username }: { username: string }) {
     );
   }
 
-  const user = data.user!;
+  const user = data.user;
 
   return <EditUserForm user={user} />;
 }

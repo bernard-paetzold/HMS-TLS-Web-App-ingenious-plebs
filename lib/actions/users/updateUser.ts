@@ -4,13 +4,12 @@ import { User, UserFieldErrors } from "@/components/admin-dashboard/types";
 import { getToken } from "@/lib/session";
 import { z } from "zod";
 
-type Response = {
-  user?: User;
-  errors?: UserFieldErrors;
-};
+type Response =
+  | { user: User; errors?: never }
+  | { user?: never; errors: UserFieldErrors };
 
 const passwordValidation = new RegExp(
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*()\[\]{};':"\\|,.<>\/`~\-=+]).{8,}$/
 );
 
 export async function updateUser(

@@ -48,7 +48,7 @@ export default function EditUserForm({ user }: { user: User }) {
         ...response.errors,
       }));
     } else {
-      setOptimisticUser(response.user!);
+      setOptimisticUser(response.user);
       setPasswordDialogOpen(false);
 
       toast({
