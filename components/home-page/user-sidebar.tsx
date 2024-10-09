@@ -26,14 +26,14 @@ const nav = {
       isActive: true,
       items: [
         {
-          title: "Open",
-          url: "/home/assignments",
+          title: "Create new assignment",
+          url: "/home/assignments/create",
           icon: History,
           description: "View your recent prompts",
         },
         {
-          title: "Closed",
-          url: "#",
+          title: "Browse assignments",
+          url: "/home/assignments",
           icon: Star,
           description: "Browse your starred prompts",
         },

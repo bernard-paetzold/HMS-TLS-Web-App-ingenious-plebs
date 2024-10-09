@@ -56,3 +56,44 @@ export async function getAssignmentById(
     return null;
   }
 }
+
+//Create new assignment
+export async function createAssignment(formData: FormData) {
+  const subject = formData.get("subject") as string;
+  const name = formData.get("name") as string;
+  const due_date = new Date(formData.get("due_date") as string);
+  const marks = Number(formData.get("marks"));
+  const assignment_info = formData.get("assignment_info") as string;
+
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/assignment/create/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+        body: JSON.stringify({
+          subject,
+          name,
+          due_date,
+          marks,
+          assignment_info,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `HTTP error! status: ${response.status} - ${response.statusText}`,
+      );
+    }
+
+    const Assignment = await response.json();
+    return Assignment;
+  } catch (error) {
+    console.error("An error occurred while updating feedback:", error);
+    throw error;
+  }
+}

@@ -32,6 +32,7 @@ export default async function Page({ params }: { params: { id: number } }) {
           <p>Due Date: {formatDate(assignment.due_date)}</p>
           <p>Module: {assignment.subject}</p>
           <p>Created on: {formatDate(assignment.created_at)}</p>
+          <p>Marks: {assignment.marks}</p>
         </div>
         <div className="comment">
           <p>{assignment.assignment_info}</p>
