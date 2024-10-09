@@ -16,6 +16,7 @@ import {
 import CreatedUsersTable from "./created-users-table";
 import { Input } from "@/components/ui/input";
 import { FormError } from "@/components/ui/form-error";
+import BulkTooltip from "./bulk-tooltip";
 
 export default function AddBulkForm() {
   const [data, setData] = useState<string>("[]");
@@ -76,7 +77,7 @@ export default function AddBulkForm() {
       <CardHeader>
         <CardTitle>Add multiple users</CardTitle>
         <CardDescription>
-          Upload an xsls file with the required fields
+          Upload an xlsx file with the required <BulkTooltip className="ml-1" />
         </CardDescription>
       </CardHeader>
       <CardContent>

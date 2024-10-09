@@ -18,6 +18,7 @@ import { BaseSyntheticEvent, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import Link from "next/link";
+import PasswordTooltip from "./password-tooltip";
 
 type FormErrors = {
   fields: {
@@ -138,7 +139,9 @@ export default function AddUserForm() {
               />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="email">Password</Label>
+              <Label htmlFor="email">
+                Password <PasswordTooltip />
+              </Label>
               {formErrors.fields?.password && (
                 <FormError>{formErrors.fields?.password[0]}</FormError>
               )}

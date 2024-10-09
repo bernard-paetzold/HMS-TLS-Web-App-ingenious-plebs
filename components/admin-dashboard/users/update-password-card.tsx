@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { FormError } from "@/components/ui/form-error";
 import { useState } from "react";
 import { UserEditSubmit, UserFormErrors } from "../types";
+import PasswordTooltip from "./password-tooltip";
 
 export default function UpdatePasswordCard({
   open,
@@ -46,7 +47,10 @@ export default function UpdatePasswordCard({
               }
             >
               <DialogHeader>
-                <DialogTitle>Set new password</DialogTitle>
+                <DialogTitle>
+                  Set new password{" "}
+                  <PasswordTooltip className="ml-1" size={18} />
+                </DialogTitle>
                 <DialogDescription>
                   Udate the user&apos;s password here. Click save when
                   you&apos;re done.
