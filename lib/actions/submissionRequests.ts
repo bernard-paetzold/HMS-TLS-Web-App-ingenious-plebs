@@ -2,11 +2,16 @@
 
 import { submission } from "../definitions";
 import { getToken } from "../session";
+import { getFeedbackBySubmissionId } from "./feedbackRequests";
 
 export async function getSubmissionById(
   id: number,
 ): Promise<submission | null> {
   try {
+    if (isNaN(id) || id == undefined) {
+      return null;
+    }
+
     const response = await fetch(
       `${process.env.BACKEND_URL}/submission/${id}/`,
       {
@@ -20,7 +25,7 @@ export async function getSubmissionById(
 
     if (!response.ok) {
       if (response.status === 404) {
-        // Assignment not found
+        // Submission not found
         return null;
       }
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -38,6 +43,11 @@ export async function getSubmissionByAssignmentId(
   id: number,
 ): Promise<submission[]> {
   try {
+    if (isNaN(id)) {
+      const data: submission[] = [];
+      return data;
+    }
+
     const response = await fetch(
       `${process.env.BACKEND_URL}/submission/list_assignment_submissions/${id}/`,
       {

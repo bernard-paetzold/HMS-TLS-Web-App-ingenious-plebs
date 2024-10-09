@@ -41,7 +41,7 @@ export function SubmissionCard({ submission }: { submission: submission }) {
           <Link
             className="text-xl font-bold mb-6 underline"
             key={submission.id}
-            href={`/home/submission/${submission.id}`}
+            href={`/home/submissions/submission/${submission.id}`}
           >
             {submission.id}
           </Link>
