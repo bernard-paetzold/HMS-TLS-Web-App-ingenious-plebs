@@ -10,6 +10,16 @@ export type User = {
   isActive: boolean;
 };
 
+export type DjangoUser = {
+  id: number;
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  role: string;
+  is_active: boolean;
+};
+
 export type UserFieldErrors = {
   fields?: {
     username?: string[] | undefined;
@@ -40,3 +50,11 @@ export type UserEditSubmit = (
   content: "info" | "password",
   setIsLoading: Dispatch<SetStateAction<boolean>>
 ) => Promise<void>;
+
+export type UserRow = {
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+};

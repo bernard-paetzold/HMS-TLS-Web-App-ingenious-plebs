@@ -1,3 +1,4 @@
+import AddBulkForm from "@/components/admin-dashboard/users/add-bulk-form";
 import AddUserForm from "@/components/admin-dashboard/users/add-user-form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -11,8 +12,9 @@ export default function Page() {
       <TabsContent value="single">
         <AddUserForm />
       </TabsContent>
-      {/* todo  */}
-      <TabsContent value="bulk">Create bulk</TabsContent>
+      <TabsContent value="bulk">
+        <AddBulkForm />
+      </TabsContent>
     </Tabs>
   );
 }
