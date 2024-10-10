@@ -1,28 +1,39 @@
 import { createAssignment } from "@/lib/actions/assignmentRequest";
+import { getLecturerModules } from "@/lib/actions/userRequests";
+import { module } from "@/lib/definitions";
 
-export default function Page() {
+export default async function Page() {
+  const modules = await getLecturerModules();
+
   return (
     <main className="container mx-auto px-4">
       <h1 className="text-2xl font-bold mb-6">Create Assignment</h1>
-      <AssignmentForm />
+      <AssignmentForm modules={modules} />
     </main>
   );
 }
 
-function AssignmentForm() {
+function AssignmentForm({ modules }: { modules: module[] }) {
+  console.log(modules);
   return (
     <form action={createAssignment} className="space-y-4">
       <div>
         <label htmlFor="subject" className="block mb-2">
           Subject
         </label>
-        <input
-          type="text"
+        <select
           id="subject"
           name="subject"
           className="w-full p-2 border rounded"
           required
-        />
+        >
+          <option value="">Select a module</option>
+          {modules.map((module) => (
+            <option key={module.code} value={module.code}>
+              {module.code}
+            </option>
+          ))}
+        </select>
       </div>
       <div>
         <label htmlFor="name" className="block mb-2">

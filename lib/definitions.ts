@@ -26,3 +26,7 @@ export type feedback = {
   mark: number;
   comment: string;
 };
+
+export type module = {
+  code: string;
+};
