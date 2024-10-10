@@ -4,11 +4,12 @@ import { AppSidebar } from "../side-nav/app-sidebar";
 
 import {
   History,
+  Settings2,
+  Star,
+  AlignLeft,
+  University,
   LifeBuoy,
   Send,
-  Settings2,
-  SquareTerminal,
-  Star,
 } from "lucide-react";
 
 const nav = {
@@ -16,13 +17,13 @@ const nav = {
     {
       title: "Home",
       url: "/home",
-      icon: SquareTerminal,
+      icon: University,
       isActive: true,
     },
     {
       title: "My Assignments",
       url: "#",
-      icon: SquareTerminal,
+      icon: AlignLeft,
       isActive: true,
       items: [
         {

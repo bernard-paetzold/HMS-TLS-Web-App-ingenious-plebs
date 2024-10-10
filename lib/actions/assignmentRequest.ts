@@ -5,13 +5,16 @@ import { getToken } from "../session";
 
 export async function assignmentRequest(): Promise<assignment[]> {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/assignment/`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: getToken(),
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/assignment/list_allowed_lecturer`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
