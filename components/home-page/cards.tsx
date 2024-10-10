@@ -3,7 +3,7 @@
 import { Card, CardHeader, CardBody, Divider, Link } from "@nextui-org/react";
 
 import { formatDate, navigateToAssignment, truncateText } from "@/lib/utils";
-import { assignment, submission } from "@/lib/definitions";
+import { assignment, module, submission } from "@/lib/definitions";
 
 // Assignment card component
 export function AssignmentCard({ assignment }: { assignment: assignment }) {
@@ -54,6 +54,28 @@ export function SubmissionCard({ submission }: { submission: submission }) {
       <CardBody>
         <p className="comment">{truncateText(submission.comment, 100)}</p>
       </CardBody>
+      <Divider />
+    </Card>
+  );
+}
+
+// Module card component
+export function ModuleCard({ module }: { module: module }) {
+  return (
+    <Card className="max-w-[400px] card-with-border">
+      <CardHeader className="flex gap-3">
+        <div className="flex flex-col">
+          <Link
+            className="text-xl font-bold mb-6 underline"
+            key={module.code}
+            href={`/home/modules/${module.code}`}
+          >
+            {module.code}
+          </Link>
+        </div>
+      </CardHeader>
+      <Divider />
+      <CardBody></CardBody>
       <Divider />
     </Card>
   );

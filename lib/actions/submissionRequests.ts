@@ -97,3 +97,31 @@ export async function getUnmarkedSubmissions(): Promise<submission[]> {
     return data;
   }
 }
+
+export async function getUnmarkedSubmissionsByModule(
+  code: string,
+): Promise<submission[]> {
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/submission/unmarked_by_module/${code}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: submission[] = await response.json();
+    return data;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    const data: submission[] = [];
+    return data;
+  }
+}
