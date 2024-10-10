@@ -4,20 +4,19 @@ import { z } from "zod";
 import { redirect } from "next/navigation";
 import { setSession } from "../session";
 
-type LoginResponse = {
+type Response = {
   errors: {
     fields?: {
       username?: string[] | undefined;
       password?: string[] | undefined;
     };
-    credentials?: string;
-    other?: string;
+    detail?: string;
   };
 };
 
 export async function loginRequest(
   formData: FormData
-): Promise<LoginResponse | undefined> {
+): Promise<Response | undefined> {
   const schema = z.object({
     username: z.string().min(1, { message: "Must have at least 1 character" }),
     password: z.string().min(1, { message: "Must have at least 1 character" }),
@@ -75,7 +74,7 @@ export async function loginRequest(
           });
           return {
             errors: {
-              other: "Students may not use this service",
+              detail: "Students may not use this service",
             },
           };
         }
@@ -87,6 +86,7 @@ export async function loginRequest(
           lastName: newData.last_name,
           email: newData.email,
           role: newData.role,
+          isActive: newData.is_active,
         });
         success = true;
         role = newData.role;
@@ -97,7 +97,7 @@ export async function loginRequest(
     } else if (response.status === 400) {
       return {
         errors: {
-          credentials: data.non_field_errors[0],
+          detail: data.non_field_errors[0],
         },
       };
     } else {
@@ -108,7 +108,7 @@ export async function loginRequest(
     console.log(error);
     return {
       errors: {
-        other: "An unexpected error occured",
+        detail: "An unexpected error occured",
       },
     };
   } finally {
