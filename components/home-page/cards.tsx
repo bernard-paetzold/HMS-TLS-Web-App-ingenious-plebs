@@ -24,7 +24,7 @@ export function AssignmentCard({ assignment }: { assignment: assignment }) {
       <Divider />
       <CardBody>
         <p className="comment">
-          {truncateText(assignment.assignment_info, 100)}
+          {truncateText(assignment.assignment_info, 20)}
         </p>
       </CardBody>
       <Divider />

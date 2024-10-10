@@ -1,8 +1,12 @@
 import { assignment, submission } from "@/lib/definitions";
 import { getAssignmentById } from "@/lib/actions/assignmentRequest";
 
-import { getSubmissionByAssignmentId } from "@/lib/actions/submissionRequests";
+import {
+  getSubmissionByAssignmentId,
+  getUnmarkedSubmissions,
+} from "@/lib/actions/submissionRequests";
 import { SubmissionCard } from "@/components/home-page/cards";
+import CardScroller from "@/components/home-page/card-scroller";
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -18,6 +22,11 @@ export default async function Page({ params }: { params: { id: number } }) {
   const assignment: assignment | null = await getAssignmentById(params.id);
   const submissions: submission[] = await getSubmissionByAssignmentId(
     params.id,
+  );
+  let unmarkedSubmissions = await getUnmarkedSubmissions();
+
+  unmarkedSubmissions = unmarkedSubmissions.filter((unmarked) =>
+    submissions.some((submission) => submission.id === unmarked.id),
   );
 
   if (!assignment) {
@@ -37,17 +46,36 @@ export default async function Page({ params }: { params: { id: number } }) {
         <div className="comment">
           <p>{assignment.assignment_info}</p>
         </div>
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 pt-10">
           <h1 className="text-2xl font-bold mb-6">Submissions</h1>
-          <div className="flex flex-wrap gap-4 justify-center">
-            {submissions && submissions.length > 0 ? (
-              submissions.map((submission) => (
-                <SubmissionCard key={submission.id} submission={submission} />
-              ))
-            ) : (
-              <p>No submissions available.</p>
-            )}
-          </div>
+          <section id="submissions">
+            <h2 className="text-xl font-bold mb-6">Unmarked</h2>
+            <CardScroller>
+              <div className="flex gap-4 pb-4">
+                {unmarkedSubmissions && unmarkedSubmissions.length > 0 ? (
+                  unmarkedSubmissions.map((submission) => (
+                    <div key={submission.id} className="flex-shrink-0 w-64">
+                      <SubmissionCard submission={submission} />
+                    </div>
+                  ))
+                ) : (
+                  <p className="pb-4">No unmarked submissions.</p>
+                )}
+              </div>
+            </CardScroller>
+          </section>
+          <section>
+            <h2 className="text-xl font-bold mb-6">All</h2>
+            <div className="flex flex-wrap gap-4 justify-center">
+              {submissions && submissions.length > 0 ? (
+                submissions.map((submission) => (
+                  <SubmissionCard key={submission.id} submission={submission} />
+                ))
+              ) : (
+                <p>No submissions available.</p>
+              )}
+            </div>
+          </section>
         </div>
       </div>
     </main>
