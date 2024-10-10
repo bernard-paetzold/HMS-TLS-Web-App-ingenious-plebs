@@ -4,13 +4,6 @@ import { User } from "@/components/admin-dashboard/types";
 import { getToken } from "@/lib/session";
 import { revalidatePath } from "next/cache";
 
-// type Response = {
-//   user?: User;
-//   errors?: {
-//     detail?: string;
-//   };
-// };
-
 type Response =
   | { user: User; errors?: never }
   | { user?: never; errors: { detail?: string } };

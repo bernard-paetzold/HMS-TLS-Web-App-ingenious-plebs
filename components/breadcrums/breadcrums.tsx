@@ -6,8 +6,8 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { ChevronRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -23,18 +23,16 @@ export function Breadcrumbs() {
     <Breadcrumb>
       <BreadcrumbList>
         {sections.map((section, i) => (
-          <>
-            {i > 0 && <BreadcrumbSeparator />}
-            <BreadcrumbItem>
-              {i + 1 !== sections.length ? (
-                <BreadcrumbLink href={`/${sections.slice(0, i + 1).join("/")}`}>
-                  {section}
-                </BreadcrumbLink>
-              ) : (
-                <BreadcrumbPage>{section}</BreadcrumbPage>
-              )}
-            </BreadcrumbItem>
-          </>
+          <BreadcrumbItem key={i}>
+            {i + 1 !== sections.length ? (
+              <BreadcrumbLink href={`/${sections.slice(0, i + 1).join("/")}`}>
+                {section}
+              </BreadcrumbLink>
+            ) : (
+              <BreadcrumbPage>{section}</BreadcrumbPage>
+            )}
+            <ChevronRight size={14} />
+          </BreadcrumbItem>
         ))}
       </BreadcrumbList>
     </Breadcrumb>

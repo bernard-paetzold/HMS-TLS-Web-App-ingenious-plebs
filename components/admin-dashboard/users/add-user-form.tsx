@@ -139,7 +139,7 @@ export default function AddUserForm() {
               />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="email">
+              <Label htmlFor="password">
                 Password <PasswordTooltip />
               </Label>
               {formErrors.fields?.password && (
@@ -154,7 +154,7 @@ export default function AddUserForm() {
               />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="role">Role</Label>
+              <Label>Role</Label>
               {formErrors.fields?.role && (
                 <FormError>{formErrors.fields?.role[0]}</FormError>
               )}

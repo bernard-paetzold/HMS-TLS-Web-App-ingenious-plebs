@@ -1,16 +1,11 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import Link from "next/link";
 
 import { getOtherUser } from "@/lib/actions/users/getOtherUser";
 import { Suspense } from "react";
 import EditUserForm from "@/components/admin-dashboard/users/edit-user-form";
+import Fallback from "@/components/admin-dashboard/fallback/fallback";
 
 export default async function Page({
   params,
@@ -18,7 +13,7 @@ export default async function Page({
   params: { username: string };
 }) {
   return (
-    <Suspense fallback={<FallBack />}>
+    <Suspense fallback={<Fallback />}>
       <EditFormWrapper username={params.username} />
     </Suspense>
   );
@@ -46,18 +41,4 @@ async function EditFormWrapper({ username }: { username: string }) {
   const user = data.user;
 
   return <EditUserForm user={user} />;
-}
-
-function FallBack() {
-  return (
-    <Card className="animate-pulse">
-      <CardHeader>
-        <div className="rounded-md bg-neutral-200 py-4 mb-2"></div>
-        <div className="rounded-md bg-neutral-200 py-4"></div>
-      </CardHeader>
-      <CardContent>
-        <div className="rounded-md bg-neutral-200 h-40"></div>
-      </CardContent>
-    </Card>
-  );
 }

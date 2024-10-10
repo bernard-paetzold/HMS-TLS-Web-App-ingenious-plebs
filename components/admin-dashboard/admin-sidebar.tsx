@@ -23,7 +23,7 @@ const nav = {
       items: [
         {
           title: "View",
-          url: "#",
+          url: `${rootURL}/users/view`,
           // icon: History,
           description: "View users",
         },

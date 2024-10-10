@@ -11,6 +11,7 @@ import Link from "next/link";
 
 import { getOtherUser } from "@/lib/actions/users/getOtherUser";
 import { Suspense } from "react";
+import Fallback from "@/components/admin-dashboard/fallback/fallback";
 
 export default async function Page({
   params,
@@ -18,7 +19,7 @@ export default async function Page({
   params: { username: string };
 }) {
   return (
-    <Suspense fallback={<FallBack />}>
+    <Suspense fallback={<Fallback />}>
       <UserWrapper username={params.username} />
     </Suspense>
   );
@@ -71,20 +72,6 @@ async function UserWrapper({ username }: { username: string }) {
           </Link>
         </Button>
       </CardFooter>
-    </Card>
-  );
-}
-
-function FallBack() {
-  return (
-    <Card className="animate-pulse">
-      <CardHeader>
-        <div className="rounded-md bg-neutral-200 py-4 mb-2"></div>
-        <div className="rounded-md bg-neutral-200 py-4"></div>
-      </CardHeader>
-      <CardContent>
-        <div className="rounded-md bg-neutral-200 h-40"></div>
-      </CardContent>
     </Card>
   );
 }
