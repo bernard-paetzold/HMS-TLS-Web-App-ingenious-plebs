@@ -117,7 +117,7 @@ export async function loginRequest(
         role === "admin"
           ? "/admin/dashboard"
           : role === "lecturer"
-          ? "/dashboard"
+          ? "/home"
           : "/login"
       );
     }
