@@ -1,6 +1,7 @@
 import { assignment } from "@/lib/definitions";
 import { getLecturerModules } from "@/lib/actions/userRequests";
 import { ModuleCard } from "@/components/home-page/cards";
+import { module } from "@/lib/definitions";
 
 export default async function Page() {
   const modules: module[] = await getLecturerModules();
@@ -11,7 +12,7 @@ export default async function Page() {
       <div className="flex flex-wrap gap-4 justify-center">
         {modules && modules.length > 0 ? (
           modules.map((module) => (
-            <ModuleCard key={module.id} module={module} />
+            <ModuleCard key={module.code} module={module} />
           ))
         ) : (
           <p>No modules assigned.</p>

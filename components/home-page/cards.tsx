@@ -8,54 +8,52 @@ import { assignment, module, submission } from "@/lib/definitions";
 // Assignment card component
 export function AssignmentCard({ assignment }: { assignment: assignment }) {
   return (
-    <Card className="max-w-[400px] card-with-border">
-      <CardHeader className="flex gap-3">
-        <div className="flex flex-col">
-          <Link
-            className="text-xl font-bold mb-6 underline"
-            key={assignment.name}
-            href={`/home/assignments/assignment/${assignment.id}`}
-          >
-            {assignment.name}
-          </Link>
-          <p className="text-sm">Closes: {formatDate(assignment.due_date)}</p>
-        </div>
-      </CardHeader>
-      <Divider />
-      <CardBody>
-        <p className="comment">
-          {truncateText(assignment.assignment_info, 20)}
-        </p>
-      </CardBody>
-      <Divider />
-    </Card>
+    <Link
+      key={assignment.name}
+      href={`/home/assignments/assignment/${assignment.id}`}
+    >
+      <Card className="max-w-[400px] card-with-border">
+        <CardHeader className="flex gap-3">
+          <div>
+            <h1 className="text-xl font-bold mb-6">{assignment.name}</h1>
+          </div>
+        </CardHeader>
+        <Divider />
+        <CardBody>
+          <p className="flex flex-col">
+            <p className="text-sm">Closes: {formatDate(assignment.due_date)}</p>
+          </p>
+          <p className="comment">
+            {truncateText(assignment.assignment_info, 20)}
+          </p>
+        </CardBody>
+        <Divider />
+      </Card>
+    </Link>
   );
 }
 
 // Submission card component
 export function SubmissionCard({ submission }: { submission: submission }) {
   return (
-    <Card className="max-w-[400px] card-with-border">
-      <CardHeader className="flex gap-3">
-        <div className="flex flex-col">
-          <Link
-            className="text-xl font-bold mb-6 underline"
-            key={submission.id}
-            href={`/home/submissions/submission/${submission.id}`}
-          >
-            {submission.id}
-          </Link>
+    <Link
+      key={submission.id}
+      href={`/home/submissions/submission/${submission.id}`}
+    >
+      <Card className="max-w-[400px] card-with-border">
+        <CardHeader className="flex gap-3">
+          <h1 className="text-xl font-bold mb-6">{submission.id}</h1>
+        </CardHeader>
+        <Divider />
+        <CardBody>
           <p className="text-sm">
             Created on: {formatDate(submission.datetime)}
           </p>
-        </div>
-      </CardHeader>
-      <Divider />
-      <CardBody>
-        <p className="comment">{truncateText(submission.comment, 100)}</p>
-      </CardBody>
-      <Divider />
-    </Card>
+          <p className="comment">{truncateText(submission.comment, 100)}</p>
+        </CardBody>
+        <Divider />
+      </Card>
+    </Link>
   );
 }
 

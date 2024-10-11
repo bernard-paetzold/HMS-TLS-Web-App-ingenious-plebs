@@ -46,4 +46,13 @@ body {
     border: 2px solid black;
     border-radius: 1em;
     padding: 1em;
+    margin: 1em;
+    box-shadow: 0.2em 0px 0.2em 0px #9b9b9b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.card-with-border:hover {
+    transform: scale(1.05);
+    box-shadow: 0.5em 0px 0.5em 0px #9b9b9b;
 }

@@ -1,14 +1,8 @@
-import { assignment } from "@/lib/definitions";
-import {
-  assignmentRequest,
-  getModuleAssignments,
-} from "@/lib/actions/assignmentRequest";
+import { getModuleAssignments } from "@/lib/actions/assignmentRequest";
 import { AssignmentCard, SubmissionCard } from "@/components/home-page/cards";
-import {
-  getUnmarkedSubmissions,
-  getUnmarkedSubmissionsByModule,
-} from "@/lib/actions/submissionRequests";
+import { getUnmarkedSubmissionsByModule } from "@/lib/actions/submissionRequests";
 import CardScroller from "@/components/home-page/card-scroller";
+import { AssignmentTable } from "@/components/home-page/assignments/assignment";
 
 export default async function Page({ params }: { params: { code: string } }) {
   let [assignments, submissions] = await Promise.all([
@@ -27,7 +21,7 @@ export default async function Page({ params }: { params: { code: string } }) {
   return (
     <main className="container mx-auto px-4">
       <h1 className="text-2xl font-bold mb-6">{params.code}</h1>
-      <section id="assignments">
+      <section id="recent-assignments">
         <h2 className="text-xl font-bold mb-6">Recent Assignments</h2>
         <CardScroller>
           <div className="flex gap-4 pb-4">
@@ -43,7 +37,7 @@ export default async function Page({ params }: { params: { code: string } }) {
           </div>
         </CardScroller>
       </section>
-      <section id="assignments">
+      <section id="unmarked-submissions">
         <h2 className="text-xl font-bold mb-6">Unmarked Submissions</h2>
         <CardScroller>
           <div className="flex gap-4 pb-4">
@@ -58,6 +52,12 @@ export default async function Page({ params }: { params: { code: string } }) {
             )}
           </div>
         </CardScroller>
+      </section>
+      <section id="assignments">
+        <h1 className="text-2xl font-bold mb-6">All Assignments</h1>
+        <div className="flex flex-wrap gap-4 justify-center">
+          <AssignmentTable assignments={assignments} />
+        </div>
       </section>
     </main>
   );
