@@ -1,5 +1,7 @@
+"use server";
+
 import { columns } from "@/components/home-page/assignments/assignment-columns";
-import { DataTable } from "@/components/ui/data-table";
+import { DataTable } from "@/components/ui/data-table-hidden";
 import { assignment } from "@/lib/definitions";
 
 export async function AssignmentTable({
@@ -7,11 +9,18 @@ export async function AssignmentTable({
 }: {
   assignments: assignment[];
 }) {
-  return (
-    <DataTable
-      columns={columns}
-      data={assignments}
-      filter={{ column: "subject", placeholder: "Filter by module" }}
-    />
-  );
+  const TableComponent = () => {
+    const table = (
+      <DataTable
+        columns={columns}
+        data={assignments}
+        filter={{ column: "subject", placeholder: "Filter by module" }}
+        visibility={["id"]}
+      />
+    );
+
+    return table;
+  };
+
+  return <TableComponent />;
 }

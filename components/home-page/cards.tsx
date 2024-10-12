@@ -49,7 +49,7 @@ export function SubmissionCard({ submission }: { submission: submission }) {
           <p className="text-sm">
             Created on: {formatDate(submission.datetime)}
           </p>
-          <p className="comment">{truncateText(submission.comment, 100)}</p>
+          <p className="comment">{truncateText(submission.comment, 20)}</p>
         </CardBody>
         <Divider />
       </Card>
@@ -60,21 +60,15 @@ export function SubmissionCard({ submission }: { submission: submission }) {
 // Module card component
 export function ModuleCard({ module }: { module: module }) {
   return (
-    <Card className="max-w-[400px] card-with-border">
-      <CardHeader className="flex gap-3">
-        <div className="flex flex-col">
-          <Link
-            className="text-xl font-bold mb-6 underline"
-            key={module.code}
-            href={`/home/modules/${module.code}`}
-          >
-            {module.code}
-          </Link>
-        </div>
-      </CardHeader>
-      <Divider />
-      <CardBody></CardBody>
-      <Divider />
-    </Card>
+    <Link key={module.code} href={`/home/modules/${module.code}`}>
+      <Card className="max-w-[400px] card-with-border">
+        <CardHeader className="flex gap-3">
+          <h1 className="text-xl font-bold mb-6">{module.code}</h1>
+        </CardHeader>
+        <Divider />
+        <CardBody></CardBody>
+        <Divider />
+      </Card>
+    </Link>
   );
 }

@@ -15,11 +15,38 @@ import {
 import Link from "next/link";
 import { assignment } from "@/lib/definitions";
 import { formatDate, truncateText } from "@/lib/utils";
+import { TitleLink } from "../title-link";
 
 export const columns: ColumnDef<assignment>[] = [
   {
+    accessorKey: "id",
+    header: ({ column }) => <SortHeader column={column} title="ID" />,
+    cell: ({ row }) => {
+      const cell = (
+        <TitleLink
+          title={row.getValue("id")}
+          url={`/home/assignments/assignment/${row.getValue("id")}`}
+        />
+      );
+
+      return cell;
+    },
+    enableHiding: true,
+    show: false,
+  },
+  {
     accessorKey: "name",
     header: ({ column }) => <SortHeader column={column} title="Name" />,
+    cell: ({ row }) => {
+      const cell = (
+        <TitleLink
+          title={row.getValue("name")}
+          url={`/home/assignments/assignment/${row.getValue("id")}`}
+        />
+      );
+
+      return cell;
+    },
   },
   {
     accessorKey: "subject",
@@ -39,7 +66,7 @@ export const columns: ColumnDef<assignment>[] = [
   },
   {
     accessorKey: "assignment_info",
-    header: ({ column }) => <SortHeader column={column} title="Details" />,
+    header: () => <PlainHeader title="Details" />,
     cell: ({ row }) => {
       const truncText = truncateText(row.getValue("assignment_info"), 25);
       return truncText;
@@ -85,7 +112,7 @@ function SortHeader({
   column,
   title,
 }: {
-  column: Column<DjangoUser, unknown>;
+  column: Column<assignment, unknown>;
   title: string;
 }) {
   return (
@@ -97,4 +124,8 @@ function SortHeader({
       <ArrowUpDown className="ml-2 h-4 w-4" />
     </Button>
   );
+}
+
+function PlainHeader({ title }: { title: string }) {
+  return <h1>{title}</h1>;
 }
