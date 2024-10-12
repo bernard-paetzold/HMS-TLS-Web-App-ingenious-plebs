@@ -1,10 +1,12 @@
+import { TitleLink } from "@/components/home-page/title-link";
 import { getAssignmentById } from "@/lib/actions/assignmentRequest";
 import {
   getFeedbackBySubmissionId,
   submitFeedback,
 } from "@/lib/actions/feedbackRequests";
 import { getSubmissionById } from "@/lib/actions/submissionRequests";
-import { assignment, feedback, submission } from "@/lib/definitions";
+import { getOtherUserById } from "@/lib/actions/users/getOtherUser";
+import { assignment, feedback } from "@/lib/definitions";
 
 import Video from "next-video";
 
@@ -27,23 +29,35 @@ export default async function Page({ params }: { params: { id: number } }) {
   if (!submission) {
     return <div>Submission not found</div>;
   }
-  console.log(submission);
   const assignment = await getAssignmentById(submission.assignment);
 
+  const user = await getOtherUserById(submission.user);
+  console.log(user);
   if (!assignment) {
     return <div>Submission not found</div>;
   }
 
   return (
     <main className="container mx-auto px-4">
-      <h1 className="text-2xl font-bold mb-6">{submission.id}</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        Submission for&nbsp;
+        <TitleLink
+          title={assignment.name}
+          url={`/home/assignments/assignment/${assignment.id}`}
+        />
+      </h1>
+      <h2 className="text-xl mb-6">
+        By: {user?.first_name} {user?.last_name}
+      </h2>
       <div>
         <div>
-          <p>Submission date: {formatDate(submission.datetime)}</p>
-          <p>File: {submission.file}</p>
-        </div>
-        <div>
           <VideoPlayer id={params.id} />
+        </div>
+        <div className="mt-4 border-b-2 border-black">
+          <p>
+            <h2 className="text-xl font-semibold">Submission date</h2>
+            {formatDate(submission.datetime)}
+          </p>
         </div>
         <div className="comment">
           <p>{submission.comment}</p>

@@ -1,6 +1,7 @@
 "use server";
 
-import { User } from "@/components/admin-dashboard/types";
+import { DjangoUser } from "@/components/admin-dashboard/types";
+
 import { getToken } from "@/lib/session";
 import { revalidatePath } from "next/cache";
 
@@ -18,7 +19,7 @@ export async function getOtherUser(username: string): Promise<Response> {
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      }
+      },
     );
 
     const data = await response.json();
@@ -50,5 +51,34 @@ export async function getOtherUser(username: string): Promise<Response> {
         detail: "An unexpected error occured",
       },
     };
+  }
+}
+
+export async function getOtherUserById(id: number): Promise<DjangoUser | null> {
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/users/get/${id}/`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+      },
+    );
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        // User not found
+        return null;
+      }
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: DjangoUser = await response.json();
+    return data;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return null;
   }
 }

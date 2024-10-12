@@ -7,6 +7,7 @@ import {
 } from "@/lib/actions/submissionRequests";
 import { SubmissionCard } from "@/components/home-page/cards";
 import CardScroller from "@/components/home-page/card-scroller";
+import { SubmissionTable } from "@/components/home-page/submissions/submission";
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -67,13 +68,7 @@ export default async function Page({ params }: { params: { id: number } }) {
           <section>
             <h2 className="text-xl font-bold mb-6">All</h2>
             <div className="flex flex-wrap gap-4 justify-center">
-              {submissions && submissions.length > 0 ? (
-                submissions.map((submission) => (
-                  <SubmissionCard key={submission.id} submission={submission} />
-                ))
-              ) : (
-                <p>No submissions available.</p>
-              )}
+              <SubmissionTable submissions={submissions} />
             </div>
           </section>
         </div>

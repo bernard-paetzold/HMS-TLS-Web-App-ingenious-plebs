@@ -36,7 +36,7 @@ function buildNav(modules: module[]) {
       },
       {
         title: "Modules",
-        url: "#",
+        url: "/home/modules",
         icon: Component,
         isActive: true,
         items: modules.map((module) => ({
