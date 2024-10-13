@@ -2,7 +2,7 @@
 
 import { Card, CardHeader, CardBody, Divider, Link } from "@nextui-org/react";
 
-import { formatDate, navigateToAssignment, truncateText } from "@/lib/utils";
+import { formatDate, truncateText } from "@/lib/utils";
 import { assignment, module, submission } from "@/lib/definitions";
 
 // Assignment card component

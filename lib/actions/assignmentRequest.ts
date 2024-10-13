@@ -89,13 +89,13 @@ export async function getAssignmentById(
 }
 
 //Create new assignment
-export async function createAssignment(formData: FormData) {
-  const subject = formData.get("subject") as string;
-  const name = formData.get("name") as string;
-  const due_date = new Date(formData.get("due_date") as string);
-  const marks = Number(formData.get("marks"));
-  const assignment_info = formData.get("assignment_info") as string;
-
+export async function createAssignment(data: {
+  subject: string;
+  name: string;
+  due_date: Date;
+  marks?: number;
+  assignment_info?: string;
+}) {
   try {
     const response = await fetch(
       `${process.env.BACKEND_URL}/assignment/create/`,
@@ -105,13 +105,7 @@ export async function createAssignment(formData: FormData) {
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-        body: JSON.stringify({
-          subject,
-          name,
-          due_date,
-          marks,
-          assignment_info,
-        }),
+        body: JSON.stringify(data),
       },
     );
 
@@ -125,6 +119,69 @@ export async function createAssignment(formData: FormData) {
     return Assignment;
   } catch (error) {
     console.error("An error occurred while updating feedback:", error);
+    throw error;
+  }
+}
+
+//Update assignment
+export async function updateAssignment(
+  data: {
+    subject: string;
+    name: string;
+    due_date: Date;
+    marks?: number;
+    assignment_info?: string;
+  },
+  id: number,
+) {
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/assignment/${id}/edit/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+        body: JSON.stringify(data),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `HTTP error! status: ${response.status} - ${response.statusText}`,
+      );
+    }
+
+    const Assignment = await response.json();
+    return Assignment;
+  } catch (error) {
+    console.error("An error occurred while updating feedback:", error);
+    throw error;
+  }
+}
+
+//Delete assignment
+export async function deleteAssignment(assignment: assignment) {
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/assignment/${assignment.id}/delete/`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `HTTP error! status: ${response.status} - ${response.statusText}`,
+      );
+    }
+  } catch (error) {
+    console.error("An error occurred while deleting feedback:", error);
     throw error;
   }
 }

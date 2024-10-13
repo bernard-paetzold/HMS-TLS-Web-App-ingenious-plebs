@@ -3,14 +3,7 @@
 import { module } from "@/lib/definitions";
 import { AppSidebar } from "../side-nav/app-sidebar";
 
-import {
-  History,
-  Star,
-  AlignLeft,
-  University,
-  Component,
-  Book,
-} from "lucide-react";
+import { History, Star, University, Component, Book } from "lucide-react";
 
 export function UserSidebar({
   user,

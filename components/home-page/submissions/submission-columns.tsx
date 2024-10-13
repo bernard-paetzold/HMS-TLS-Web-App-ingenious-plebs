@@ -15,8 +15,6 @@ import Link from "next/link";
 import { submission } from "@/lib/definitions";
 import { formatDate, truncateText } from "@/lib/utils";
 import { TitleLink } from "../title-link";
-import { getOtherUserById } from "@/lib/actions/users/getOtherUser";
-import { DjangoUser } from "@/components/admin-dashboard/types";
 
 export const columns: ColumnDef<submission>[] = [
   {

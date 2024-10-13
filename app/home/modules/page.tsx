@@ -1,4 +1,3 @@
-import { assignment } from "@/lib/definitions";
 import { getLecturerModules } from "@/lib/actions/userRequests";
 import { ModuleCard } from "@/components/home-page/cards";
 import { module } from "@/lib/definitions";

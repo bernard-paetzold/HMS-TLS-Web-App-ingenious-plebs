@@ -79,6 +79,7 @@ export async function submitFeedback(formData: FormData) {
             }),
           },
         );
+        return response;
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

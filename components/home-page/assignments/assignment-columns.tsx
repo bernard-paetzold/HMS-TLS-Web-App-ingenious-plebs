@@ -1,7 +1,6 @@
 "use client";
 
 import { Column, ColumnDef } from "@tanstack/react-table";
-import { DjangoUser } from "../types";
 import { MoreHorizontal, ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,7 +31,6 @@ export const columns: ColumnDef<assignment>[] = [
       return cell;
     },
     enableHiding: true,
-    show: false,
   },
   {
     accessorKey: "name",
@@ -94,12 +92,9 @@ export const columns: ColumnDef<assignment>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href={`/admin/dashboard/users/edit/`}>Edit user</Link>
-            </DropdownMenuItem>
-
-            {/* TODO */}
-            <DropdownMenuItem onClick={() => alert("Do something")}>
-              Edit modules
+              <Link href={`/home/assignments/edit/${assignment.id}`}>
+                Edit assignment
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

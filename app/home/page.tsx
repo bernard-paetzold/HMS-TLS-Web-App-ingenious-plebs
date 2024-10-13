@@ -1,4 +1,4 @@
-import { assignment, module } from "@/lib/definitions";
+import { module } from "@/lib/definitions";
 import { assignmentRequest } from "@/lib/actions/assignmentRequest";
 import {
   AssignmentCard,

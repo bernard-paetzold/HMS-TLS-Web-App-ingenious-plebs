@@ -8,6 +8,8 @@ import {
 import { SubmissionCard } from "@/components/home-page/cards";
 import CardScroller from "@/components/home-page/card-scroller";
 import { SubmissionTable } from "@/components/home-page/submissions/submission";
+import LinkButton from "@/components/ui/link-button";
+import DeleteAssignmentWithConfirmation from "@/components/ui/delete-assignment-confirmation";
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -46,6 +48,15 @@ export default async function Page({ params }: { params: { id: number } }) {
         </div>
         <div className="comment">
           <p>{assignment.assignment_info}</p>
+        </div>
+        <div className="mt-4 space-x-4">
+          <LinkButton
+            title={"Edit"}
+            target={`/home/assignments/edit/${params.id}`}
+          ></LinkButton>
+          <DeleteAssignmentWithConfirmation
+            assignment={assignment}
+          ></DeleteAssignmentWithConfirmation>
         </div>
         <div className="container mx-auto px-4 pt-10">
           <h1 className="text-2xl font-bold mb-6">Submissions</h1>

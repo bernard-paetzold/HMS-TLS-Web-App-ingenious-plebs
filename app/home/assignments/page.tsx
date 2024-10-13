@@ -1,6 +1,5 @@
 import { assignment } from "@/lib/definitions";
 import { assignmentRequest } from "@/lib/actions/assignmentRequest";
-import { AssignmentCard } from "@/components/home-page/cards";
 import { AssignmentTable } from "@/components/home-page/assignments/assignment";
 
 export default async function Page() {
