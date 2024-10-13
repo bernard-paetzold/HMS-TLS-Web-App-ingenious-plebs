@@ -15,6 +15,7 @@ import Link from "next/link";
 import { submission } from "@/lib/definitions";
 import { formatDate, truncateText } from "@/lib/utils";
 import { TitleLink } from "../title-link";
+import { useRouter } from "next/navigation";
 
 export const columns: ColumnDef<submission>[] = [
   {
@@ -57,36 +58,19 @@ export const columns: ColumnDef<submission>[] = [
     },
   },
   {
-    id: "actions",
+    id: "action",
     cell: ({ row }) => {
       const submission = row.original;
+      const router = useRouter();
+
+      const handleButtonClick = () => {
+        router.push(`/home/submissions/submission/${submission.id}`);
+      };
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem asChild>
-              <Link href={`/home/submissions/submission/${submission.id}`}>
-                View submission
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link href={`/admin/dashboard/users/edit/`}>Edit user</Link>
-            </DropdownMenuItem>
-
-            {/* TODO */}
-            <DropdownMenuItem onClick={() => alert("Do something")}>
-              Edit modules
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Button onClick={handleButtonClick} variant="outline" size="sm">
+          Open
+        </Button>
       );
     },
   },

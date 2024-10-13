@@ -15,6 +15,8 @@ import Link from "next/link";
 import { assignment } from "@/lib/definitions";
 import { formatDate, truncateText } from "@/lib/utils";
 import { TitleLink } from "../title-link";
+import { useRouter } from "next/navigation";
+import DeleteAssignmentWithConfirmation from "@/components/ui/delete-assignment-confirmation";
 
 export const columns: ColumnDef<assignment>[] = [
   {
@@ -71,33 +73,28 @@ export const columns: ColumnDef<assignment>[] = [
     },
   },
   {
-    id: "actions",
+    id: "action",
     cell: ({ row }) => {
       const assignment = row.original;
+      const router = useRouter();
+
+      const handleButtonClick = () => {
+        router.push(`/home/assignments/assignment/${assignment.id}`);
+      };
+
+      const handleEditButtonClick = () => {
+        router.push(`/home/assignments/edit/${assignment.id}`);
+      };
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem asChild>
-              <Link href={`/home/assignments/assignment/${assignment.id}`}>
-                View assignment
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link href={`/home/assignments/edit/${assignment.id}`}>
-                Edit assignment
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex space-x-2">
+          <Button onClick={handleButtonClick} variant="outline" size="sm">
+            Open
+          </Button>
+          <Button onClick={handleEditButtonClick} variant="outline" size="sm">
+            Edit
+          </Button>
+        </div>
       );
     },
   },

@@ -38,7 +38,7 @@ import {
   createAssignment,
   updateAssignment,
 } from "@/lib/actions/assignmentRequest";
-import { Textarea } from "@nextui-org/react";
+import { Textarea } from "@/components/ui/textarea";
 import { toast } from "react-hot-toast";
 import { useState, useEffect, useCallback } from "react";
 import {
@@ -242,10 +242,8 @@ export function AssignmentForm({
     }
   }, [isEditing, assignment, form, resetForm]);
 
-  console.log(assignment?.due_date);
-
   return (
-    <>
+    <div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -536,6 +534,6 @@ export function AssignmentForm({
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }
