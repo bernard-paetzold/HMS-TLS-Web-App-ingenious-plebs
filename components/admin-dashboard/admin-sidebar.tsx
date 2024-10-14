@@ -10,6 +10,7 @@ import {
   SquareTerminal,
   User,
   Clapperboard,
+  Box,
 } from "lucide-react";
 
 const rootURL = "/admin/dashboard";
@@ -32,6 +33,25 @@ const nav = {
           url: `${rootURL}/users/add`,
           // icon: History,
           description: "Create users",
+        },
+      ],
+    },
+    {
+      title: "Modules",
+      url: `${rootURL}/modules`,
+      icon: Box,
+      items: [
+        {
+          title: "View",
+          url: `${rootURL}/modules/view`,
+          // icon: History,
+          description: "View modules",
+        },
+        {
+          title: "Add",
+          url: `${rootURL}/modules/add`,
+          // icon: History,
+          description: "Add a module",
         },
       ],
     },
