@@ -2,16 +2,7 @@
 
 import { AppSidebar } from "../side-nav/app-sidebar";
 
-import {
-  BookOpen,
-  LifeBuoy,
-  Send,
-  Settings2,
-  SquareTerminal,
-  User,
-  Clapperboard,
-  Box,
-} from "lucide-react";
+import { BookOpen, SquareTerminal, User, Box } from "lucide-react";
 
 const rootURL = "/admin/dashboard";
 const nav = {
@@ -25,13 +16,11 @@ const nav = {
         {
           title: "View",
           url: `${rootURL}/users/view`,
-          // icon: History,
           description: "View users",
         },
         {
           title: "Add",
           url: `${rootURL}/users/add`,
-          // icon: History,
           description: "Create users",
         },
       ],
@@ -44,13 +33,11 @@ const nav = {
         {
           title: "View",
           url: `${rootURL}/modules/view`,
-          // icon: History,
           description: "View modules",
         },
         {
           title: "Add",
           url: `${rootURL}/modules/add`,
-          // icon: History,
           description: "Add a module",
         },
       ],
@@ -62,34 +49,8 @@ const nav = {
       items: [
         {
           title: "View",
-          url: "#",
-          // icon: History,
+          url: `${rootURL}/assignments/view`,
           description: "View assignments",
-        },
-        {
-          title: "Add",
-          url: "#",
-          // icon: History,
-          description: "Create an assignment",
-        },
-      ],
-    },
-    {
-      title: "Submissions",
-      url: `${rootURL}/submissions`,
-      icon: Clapperboard,
-      items: [
-        {
-          title: "View",
-          url: "#",
-          // icon: History,
-          description: "View submissions",
-        },
-        {
-          title: "Add",
-          url: "#",
-          // icon: History,
-          description: "Create a submission",
         },
       ],
     },
@@ -100,34 +61,10 @@ const nav = {
       items: [
         {
           title: "View",
-          url: "#",
-          // icon: History,
+          url: `${rootURL}/logs/view`,
           description: "View logs",
         },
       ],
-    },
-    {
-      title: "Settings",
-      url: `${rootURL}/settings`,
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  secondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
     },
   ],
 };
