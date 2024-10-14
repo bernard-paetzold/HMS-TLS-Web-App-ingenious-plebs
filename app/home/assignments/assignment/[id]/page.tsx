@@ -10,6 +10,7 @@ import CardScroller from "@/components/home-page/card-scroller";
 import { SubmissionTable } from "@/components/home-page/submissions/submission";
 import LinkButton from "@/components/ui/link-button";
 import DeleteAssignmentWithConfirmation from "@/components/ui/delete-assignment-confirmation";
+import { getOtherUserById } from "@/lib/actions/users/getOtherUser";
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -35,6 +36,14 @@ export default async function Page({ params }: { params: { id: number } }) {
   if (!assignment) {
     return <div>Assignment not found</div>;
   }
+
+  const unmarkedSubmissionsWithUsers = await Promise.all(
+    unmarkedSubmissions.map(async (submission) => {
+      const user = await getOtherUserById(submission.user);
+      console.log(user);
+      return { submission, user };
+    }),
+  );
 
   return (
     <main className="container mx-auto px-4">
@@ -64,10 +73,17 @@ export default async function Page({ params }: { params: { id: number } }) {
             <h2 className="text-xl font-bold mb-6">Unmarked</h2>
             <CardScroller>
               <div className="flex gap-4 pb-4">
-                {unmarkedSubmissions && unmarkedSubmissions.length > 0 ? (
-                  unmarkedSubmissions.map((submission) => (
-                    <div key={submission.id} className="flex-shrink-0 w-64">
-                      <SubmissionCard submission={submission} />
+                {unmarkedSubmissionsWithUsers &&
+                unmarkedSubmissionsWithUsers.length > 0 ? (
+                  unmarkedSubmissionsWithUsers.map((submissionWithUser) => (
+                    <div
+                      key={submissionWithUser.submission.id}
+                      className="flex-shrink-0 w-64"
+                    >
+                      <SubmissionCard
+                        submission={submissionWithUser.submission}
+                        user={submissionWithUser.user}
+                      />
                     </div>
                   ))
                 ) : (

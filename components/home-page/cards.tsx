@@ -4,6 +4,7 @@ import { Card, CardHeader, CardBody, Divider, Link } from "@nextui-org/react";
 
 import { formatDate, truncateText } from "@/lib/utils";
 import { assignment, module, submission } from "@/lib/definitions";
+import { DjangoUser } from "../admin-dashboard/types";
 
 // Assignment card component
 export function AssignmentCard({ assignment }: { assignment: assignment }) {
@@ -21,7 +22,7 @@ export function AssignmentCard({ assignment }: { assignment: assignment }) {
         <Divider />
         <CardBody>
           <p className="flex flex-col">
-            <p className="text-sm">Closes: {formatDate(assignment.due_date)}</p>
+            Closes: {formatDate(assignment.due_date)}
           </p>
           <p className="comment">
             {truncateText(assignment.assignment_info, 20)}
@@ -34,7 +35,13 @@ export function AssignmentCard({ assignment }: { assignment: assignment }) {
 }
 
 // Submission card component
-export function SubmissionCard({ submission }: { submission: submission }) {
+export function SubmissionCard({
+  user,
+  submission,
+}: {
+  user: DjangoUser | null;
+  submission: submission;
+}) {
   return (
     <Link
       key={submission.id}
@@ -42,7 +49,12 @@ export function SubmissionCard({ submission }: { submission: submission }) {
     >
       <Card className="max-w-[400px] card-with-border">
         <CardHeader className="flex gap-3">
-          <h1 className="text-xl font-bold mb-6">{submission.id}</h1>
+          <h1 className="text-xl mb-6">
+            {user
+              ? `${user.first_name || user.username} ${user.last_name || ""}`
+              : "Unknown User"}
+            : {submission.user}
+          </h1>
         </CardHeader>
         <Divider />
         <CardBody>
@@ -62,12 +74,9 @@ export function ModuleCard({ module }: { module: module }) {
   return (
     <Link key={module.code} href={`/home/modules/${module.code}`}>
       <Card className="max-w-[400px] card-with-border">
-        <CardHeader className="flex gap-3">
+        <CardHeader className="flex">
           <h1 className="text-xl font-bold mb-6">{module.code}</h1>
         </CardHeader>
-        <Divider />
-        <CardBody></CardBody>
-        <Divider />
       </Card>
     </Link>
   );

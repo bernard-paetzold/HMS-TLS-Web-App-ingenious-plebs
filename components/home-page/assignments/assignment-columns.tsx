@@ -1,22 +1,13 @@
 "use client";
 
 import { Column, ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import Link from "next/link";
+
 import { assignment } from "@/lib/definitions";
 import { formatDate, truncateText } from "@/lib/utils";
 import { TitleLink } from "../title-link";
 import { useRouter } from "next/navigation";
-import DeleteAssignmentWithConfirmation from "@/components/ui/delete-assignment-confirmation";
 
 export const columns: ColumnDef<assignment>[] = [
   {
