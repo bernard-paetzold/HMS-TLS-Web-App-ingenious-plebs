@@ -1,11 +1,10 @@
 "use client";
 
-import { Atom, Eclipse, LucideIcon, Rabbit } from "lucide-react";
+import { BrainCog, LucideIcon } from "lucide-react";
 
 import { NavMain } from "./nav-main";
 import { NavSecondary } from "@/components/side-nav/nav-secondary";
 import { NavUser } from "./nav-user";
-import { TeamSwitcher } from "@/components/side-nav/team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -14,22 +13,13 @@ import {
   SidebarItem,
   SidebarLabel,
 } from "@/components/ui/sidebar";
-const testData = {
-  teams: [
+import { OrganisationSwitcher } from "./sidebar-header";
+const data = {
+  organisations: [
     {
-      name: "Acme Inc",
-      logo: Atom,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: Eclipse,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Rabbit,
-      plan: "Free",
+      name: "HMS TLS",
+      logo: BrainCog,
+      plan: "",
     },
   ],
 };
@@ -67,12 +57,11 @@ export function AppSidebar({
   return (
     <Sidebar>
       <SidebarHeader>
-        {/* Might use down the line */}
-        <TeamSwitcher teams={testData.teams} />
+        <OrganisationSwitcher organisations={data.organisations} />
       </SidebarHeader>
       <SidebarContent>
         <SidebarItem>
-          <SidebarLabel>Platform</SidebarLabel>
+          <SidebarLabel>Navigation</SidebarLabel>
           <NavMain items={nav.main} />
         </SidebarItem>
         <SidebarItem className="mt-auto">

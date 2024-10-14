@@ -2,7 +2,6 @@
 
 import { submission } from "../definitions";
 import { getToken } from "../session";
-import { getFeedbackBySubmissionId } from "./feedbackRequests";
 
 export async function getSubmissionById(
   id: number,

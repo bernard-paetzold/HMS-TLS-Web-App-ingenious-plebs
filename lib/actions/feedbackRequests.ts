@@ -38,11 +38,16 @@ export async function getFeedbackBySubmissionId(
   }
 }
 
-export async function submitFeedback(formData: FormData) {
-  const mark = formData.get("mark");
-  const comment = formData.get("comment");
-  const submissionId = formData.get("submissionId");
-  const feedbackId = formData.get("feedbackId");
+export async function submitFeedback(data: {
+  mark: number;
+  comment: string;
+  submissionId: number;
+  feedbackId: number;
+}) {
+  const mark = data.mark;
+  const comment = data.comment;
+  const feedbackId = data.feedbackId;
+  const submissionId = data.submissionId;
 
   try {
     const response = await fetch(
@@ -79,6 +84,7 @@ export async function submitFeedback(formData: FormData) {
             }),
           },
         );
+        return response;
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

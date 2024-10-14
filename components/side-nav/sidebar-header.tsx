@@ -13,25 +13,27 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export function TeamSwitcher({
-  teams,
+export function OrganisationSwitcher({
+  organisations,
 }: {
-  teams: {
+  organisations: {
     name: string;
     logo: React.ElementType;
   }[];
 }) {
-  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
+  const [activeOrganisation, setActiveOrganisation] = React.useState(
+    organisations[0],
+  );
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="w-full rounded-md ring-neutral-950 hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 data-[state=open]:bg-neutral-100 dark:ring-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-50 dark:data-[state=open]:bg-neutral-800">
         <div className="flex items-center gap-1.5 overflow-hidden px-2 py-1.5 text-left text-sm transition-all">
           <div className="flex h-5 w-5 items-center justify-center rounded-sm bg-neutral-900 text-neutral-50 dark:bg-neutral-50 dark:text-neutral-900">
-            <activeTeam.logo className="h-3.5 w-3.5 shrink-0" />
+            <activeOrganisation.logo className="h-3.5 w-3.5 shrink-0" />
           </div>
           <div className="line-clamp-1 flex-1 pr-2 font-medium">
-            {activeTeam.name}
+            {activeOrganisation.name}
           </div>
           <ChevronsUpDown className="ml-auto h-4 w-4 text-neutral-500/50 dark:text-neutral-400/50" />
         </div>
@@ -43,21 +45,23 @@ export function TeamSwitcher({
         sideOffset={4}
       >
         <DropdownMenuLabel className="text-xs text-neutral-500 dark:text-neutral-400">
-          Teams
+          Organisations
         </DropdownMenuLabel>
-        {teams.map((team, index) => (
+        {organisations.map((organisation, index) => (
           <DropdownMenuItem
-            key={team.name}
-            onClick={() => setActiveTeam(team)}
+            key={organisation.name}
+            onClick={() => setActiveOrganisation(organisation)}
             className="items-start gap-2 px-1.5"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-neutral-900 text-neutral-50 dark:bg-neutral-50 dark:text-neutral-900">
-              <team.logo className="h-5 w-5 shrink-0" />
+              <organisation.logo className="h-5 w-5 shrink-0" />
             </div>
             <div className="grid flex-1 leading-tight">
-              <div className="line-clamp-1 font-medium">{team.name}</div>
+              <div className="line-clamp-1 font-medium">
+                {organisation.name}
+              </div>
               <div className="overflow-hidden text-xs text-neutral-500 dark:text-neutral-400">
-                <div className="line-clamp-1">{team.plan}</div>
+                <div className="line-clamp-1">{organisation.plan}</div>
               </div>
             </div>
             <DropdownMenuShortcut className="self-center">

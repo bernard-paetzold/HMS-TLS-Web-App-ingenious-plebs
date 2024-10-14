@@ -31,7 +31,7 @@ import {
 
 import { Button } from "./button";
 import { Input } from "./input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
@@ -41,12 +41,14 @@ interface DataTableProps<TData, TValue> {
     column: string;
     placeholder: string;
   };
+  visibility: string[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   filter,
+  visibility,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -68,6 +70,15 @@ export function DataTable<TData, TValue>({
       columnVisibility,
     },
   });
+
+  useEffect(() => {
+    // Set initial column visibility
+    const initialVisibility: VisibilityState = {};
+    visibility.forEach((id) => {
+      initialVisibility[id] = false;
+    });
+    setColumnVisibility(initialVisibility);
+  }, [visibility]);
 
   return (
     <div>

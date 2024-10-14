@@ -1,73 +1,65 @@
 "use client";
 
+import { module } from "@/lib/definitions";
 import { AppSidebar } from "../side-nav/app-sidebar";
 
-import {
-  History,
-  Settings2,
-  Star,
-  AlignLeft,
-  University,
-  LifeBuoy,
-  Send,
-} from "lucide-react";
-
-const nav = {
-  main: [
-    {
-      title: "Home",
-      url: "/home",
-      icon: University,
-      isActive: true,
-    },
-    {
-      title: "My Assignments",
-      url: "#",
-      icon: AlignLeft,
-      isActive: true,
-      items: [
-        {
-          title: "Create new assignment",
-          url: "/home/assignments/create",
-          icon: History,
-          description: "View your recent prompts",
-        },
-        {
-          title: "Browse assignments",
-          url: "/home/assignments",
-          icon: Star,
-          description: "Browse your starred prompts",
-        },
-        {
-          title: "History",
-          url: "#",
-          icon: Settings2,
-          description: "Configure your playground",
-        },
-      ],
-    },
-  ],
-  secondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-};
+import { History, Star, University, Component, Book } from "lucide-react";
 
 export function UserSidebar({
   user,
+  modules,
 }: {
   user: {
     username: string;
     email: string;
   };
+  modules: module[];
 }) {
-  return <AppSidebar user={user} nav={nav} />;
+  return <AppSidebar user={user} nav={buildNav(modules)} />;
+}
+
+function buildNav(modules: module[]) {
+  const nav = {
+    main: [
+      {
+        title: "Home",
+        url: "/home",
+        icon: University,
+        isActive: true,
+      },
+      {
+        title: "Modules",
+        url: "/home/modules",
+        icon: Component,
+        isActive: true,
+        items: modules.map((module) => ({
+          title: module.code,
+          url: `/home/modules/${module.code}`,
+        })),
+      },
+      {
+        title: "Assignments",
+        url: "#",
+        icon: Book,
+        isActive: true,
+        items: [
+          {
+            title: "Create new assignment",
+            url: "/home/assignments/create",
+            icon: History,
+            description: "Create a new assignment",
+          },
+          {
+            title: "Browse all assignments",
+            url: "/home/assignments",
+            icon: Star,
+            description: "Browse assignments from all modules",
+          },
+        ],
+      },
+    ],
+    secondary: [],
+  };
+
+  return nav;
 }

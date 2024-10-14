@@ -14,7 +14,7 @@ export type submission = {
   datetime: Date;
   file: string;
   comment: string;
-  user_id: number;
+  user: number;
   assignment: number;
 };
 

@@ -3,6 +3,7 @@ import { AssignmentCard, SubmissionCard } from "@/components/home-page/cards";
 import { getUnmarkedSubmissionsByModule } from "@/lib/actions/submissionRequests";
 import CardScroller from "@/components/home-page/card-scroller";
 import { AssignmentTable } from "@/components/home-page/assignments/assignment";
+import { getOtherUserById } from "@/lib/actions/users/getOtherUser";
 
 export default async function Page({ params }: { params: { code: string } }) {
   let [assignments, submissions] = await Promise.all([
@@ -17,6 +18,14 @@ export default async function Page({ params }: { params: { code: string } }) {
   submissions = submissions.sort((a, b) => {
     return new Date(b.datetime).getTime() - new Date(a.datetime).getTime();
   });
+
+  const submissionsWithUsers = await Promise.all(
+    submissions.map(async (submission) => {
+      const user = await getOtherUserById(submission.user);
+      console.log(user);
+      return { submission, user };
+    }),
+  );
 
   return (
     <main className="container mx-auto px-4">
@@ -41,14 +50,20 @@ export default async function Page({ params }: { params: { code: string } }) {
         <h2 className="text-xl font-bold mb-6">Unmarked Submissions</h2>
         <CardScroller>
           <div className="flex gap-4 pb-4">
-            {submissions && submissions.length > 0 ? (
-              submissions.map((submission) => (
-                <div key={submission.id} className="flex-shrink-0 w-64">
-                  <SubmissionCard submission={submission} />
+            {submissionsWithUsers && submissionsWithUsers.length > 0 ? (
+              submissionsWithUsers.map((submissionWithUser) => (
+                <div
+                  key={submissionWithUser.submission.id}
+                  className="flex-shrink-0 w-64"
+                >
+                  <SubmissionCard
+                    submission={submissionWithUser.submission}
+                    user={submissionWithUser.user}
+                  />
                 </div>
               ))
             ) : (
-              <p>No unmarked submissions.</p>
+              <p className="pb-4">No unmarked submissions.</p>
             )}
           </div>
         </CardScroller>
