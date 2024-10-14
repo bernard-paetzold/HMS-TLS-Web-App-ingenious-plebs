@@ -23,8 +23,7 @@ export async function addStudentToModule(
   const schema = z.object({
     student_username: z
       .string()
-      .length(8, { message: "Must be 8 digits" })
-      .regex(/^\d{8}$/, { message: "Must contain only digits" }),
+      .min(1, { message: "Must be at least 1 character" }),
     module_code: z.string().length(7, { message: "Must be 7 characters" }),
   });
 
