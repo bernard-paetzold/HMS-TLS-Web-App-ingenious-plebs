@@ -61,10 +61,10 @@ export const columns: ColumnDef<DjangoUser>[] = [
                 Edit user
               </Link>
             </DropdownMenuItem>
-
-            {/* TODO */}
-            <DropdownMenuItem onClick={() => alert("Do something")}>
-              Edit modules
+            <DropdownMenuItem asChild>
+              <Link href={`/admin/dashboard/users/modules/${user.username}`}>
+                Edit modules
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

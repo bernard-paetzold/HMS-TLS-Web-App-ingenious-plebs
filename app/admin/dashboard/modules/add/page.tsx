@@ -19,7 +19,7 @@ import Link from "next/link";
 import { createModule } from "@/lib/actions/modules/createModule";
 import { ModuleFormErrors } from "@/components/admin-dashboard/types";
 
-export default function AddUserForm() {
+export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const noFormErrors = {
     fields: null,

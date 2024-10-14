@@ -9,6 +9,7 @@ import UpdateActiveCard from "./update-active-card";
 import DeleteCard from "./delete-card";
 import { User, UserEditSubmit, UserFormErrors } from "../types";
 import { useRouter } from "next/navigation";
+import EditModulesRedirectCard from "./edit-modules-redirect-card";
 
 export default function EditUserForm({ user }: { user: User }) {
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
@@ -72,7 +73,7 @@ export default function EditUserForm({ user }: { user: User }) {
         formErrors={formErrors}
         handleSubmit={handleSubmit}
       />
-
+      <EditModulesRedirectCard username={optimisticUser.username} />
       <UpdatePasswordCard
         formErrors={formErrors}
         handleSubmit={handleSubmit}
@@ -82,7 +83,6 @@ export default function EditUserForm({ user }: { user: User }) {
           setPasswordDialogOpen((open) => !open);
         }}
       />
-
       <UpdateActiveCard
         user={optimisticUser}
         onActiveChange={() =>
