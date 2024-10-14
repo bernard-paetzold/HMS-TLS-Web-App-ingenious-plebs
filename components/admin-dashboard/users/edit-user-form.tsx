@@ -52,6 +52,13 @@ export default function EditUserForm({ user }: { user: User }) {
       setOptimisticUser(response.user);
       setPasswordDialogOpen(false);
 
+      // No need to redirect to update URL
+      window.history.replaceState(
+        null,
+        "",
+        `/admin/dashboard/users/edit/${response.user.username}`
+      );
+
       toast({
         title: "Updated",
         description: `User ${content} successfully updated`,

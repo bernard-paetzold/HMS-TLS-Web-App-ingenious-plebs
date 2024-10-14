@@ -50,6 +50,13 @@ export default function UpdateModuleCard({
     } else {
       setCode(response.data.code);
 
+      // No need to redirect to update URL
+      window.history.replaceState(
+        null,
+        "",
+        `/admin/dashboard/modules/edit/${response.data.code}`
+      );
+
       toast({
         title: "Updated",
         description: `Module successfully updated`,
