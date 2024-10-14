@@ -15,7 +15,7 @@ export default async function Page() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>View all users</CardTitle>
+        <CardTitle>View All Users</CardTitle>
         <CardDescription>Search for users</CardDescription>
       </CardHeader>
       <CardContent>

@@ -75,7 +75,7 @@ export default function AddBulkForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Add multiple users</CardTitle>
+        <CardTitle>Add Multiple Users</CardTitle>
         <CardDescription>
           Upload an xlsx file with the required <BulkTooltip />
         </CardDescription>
