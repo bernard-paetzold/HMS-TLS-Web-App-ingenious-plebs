@@ -79,7 +79,7 @@ export default function AddUserForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Add a user</CardTitle>
+        <CardTitle>Add a User</CardTitle>
         <CardDescription>Enter the required details</CardDescription>
         {formErrors.detail && <FormError>{formErrors.detail}</FormError>}
       </CardHeader>

@@ -17,8 +17,7 @@ export async function createBulk(data: string): Promise<Response> {
     .object({
       username: z.coerce
         .string()
-        .length(8, { message: "Must be 8 digits" })
-        .regex(/^\d{8}$/, { message: "Must contain only digits" }),
+        .min(1, { message: "Must be at least 1 character" }),
       first_name: z.coerce
         .string()
         .min(1, { message: "Must have at least 1 character" }),

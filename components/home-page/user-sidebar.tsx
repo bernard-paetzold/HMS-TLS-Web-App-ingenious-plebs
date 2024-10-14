@@ -58,7 +58,6 @@ function buildNav(modules: module[]) {
         ],
       },
     ],
-    secondary: [],
   };
 
   return nav;

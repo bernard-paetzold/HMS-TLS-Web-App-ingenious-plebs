@@ -3,7 +3,6 @@
 import { BrainCog, LucideIcon } from "lucide-react";
 
 import { NavMain } from "./nav-main";
-import { NavSecondary } from "@/components/side-nav/nav-secondary";
 import { NavUser } from "./nav-user";
 import {
   Sidebar,
@@ -43,15 +42,6 @@ export function AppSidebar({
         url: string;
       }[];
     }[];
-    secondary: {
-      title: string;
-      url: string;
-      icon: LucideIcon;
-      items?: {
-        title: string;
-        url: string;
-      }[];
-    }[];
   };
 }) {
   return (
@@ -63,11 +53,6 @@ export function AppSidebar({
         <SidebarItem>
           <SidebarLabel>Navigation</SidebarLabel>
           <NavMain items={nav.main} />
-        </SidebarItem>
-        <SidebarItem className="mt-auto">
-          {/* Might use down the line */}
-          <SidebarLabel>Help</SidebarLabel>
-          <NavSecondary items={nav.secondary} />
         </SidebarItem>
       </SidebarContent>
       <SidebarFooter>

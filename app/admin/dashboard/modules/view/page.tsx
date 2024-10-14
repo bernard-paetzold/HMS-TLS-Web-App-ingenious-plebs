@@ -1,5 +1,5 @@
 import Fallback from "@/components/admin-dashboard/fallback/fallback";
-import { columns } from "@/components/admin-dashboard/users/user-columns";
+import { columns } from "@/components/admin-dashboard/modules/module-columns";
 import {
   Card,
   CardContent,
@@ -8,27 +8,27 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";
-import { getAllUsers } from "@/lib/actions/users/getAllUsers";
+import { getAllModules } from "@/lib/actions/modules/getAllModules";
 import { Suspense } from "react";
 
 export default async function Page() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>View All Users</CardTitle>
-        <CardDescription>Search for users</CardDescription>
+        <CardTitle>View All Modules</CardTitle>
+        <CardDescription>Search for modules</CardDescription>
       </CardHeader>
       <CardContent>
         <Suspense fallback={<Fallback />}>
-          <UserTable />
+          <ModuleTable />
         </Suspense>
       </CardContent>
     </Card>
   );
 }
 
-async function UserTable() {
-  const data = await getAllUsers();
+async function ModuleTable() {
+  const data = await getAllModules();
 
   if (data.errors) {
     return (
@@ -44,8 +44,8 @@ async function UserTable() {
   return (
     <DataTable
       columns={columns}
-      data={data.users}
-      filter={{ column: "username", placeholder: "Filter by username" }}
+      data={data.modules}
+      filter={{ column: "Code", placeholder: "Filter by code" }}
     />
   );
 }

@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logoutRequest } from "@/lib/actions/logoutRequest";
+import Link from "next/link";
 
 export function NavUser({
   user,
@@ -61,9 +62,11 @@ export function NavUser({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="gap-2">
-            <BadgeCheck className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
-            Account
+          <DropdownMenuItem asChild>
+            <Link href={"/admin/dashboard/account/"}>
+              <BadgeCheck className="mr-2 h-4 w-4 text-neutral-500 dark:text-neutral-400" />
+              Account
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

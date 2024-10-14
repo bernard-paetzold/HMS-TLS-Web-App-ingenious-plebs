@@ -24,10 +24,7 @@ export async function updateUser(
 
   const infoSchema = z.object({
     username: z.union([
-      z
-        .string()
-        .length(8, { message: "Must be 8 digits" })
-        .regex(/^\d{8}$/, { message: "Must contain only digits" }),
+      z.string().min(1, { message: "Must be at least 1 character" }),
       empty,
     ]),
     first_name: z.string().transform((x) => x || undefined),

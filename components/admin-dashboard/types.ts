@@ -1,5 +1,7 @@
 import { BaseSyntheticEvent, Dispatch, SetStateAction } from "react";
 
+// User types
+
 export type User = {
   id: number;
   username: string;
@@ -57,4 +59,24 @@ export type UserRow = {
   lastName: string;
   email: string;
   role: string;
+};
+
+// Module types
+
+export type Module = {
+  code: string;
+};
+
+export type ModuleFieldErrors = {
+  fields?: {
+    code?: string[] | undefined;
+  };
+  detail?: string;
+};
+
+export type ModuleFormErrors = {
+  fields: {
+    code?: string[] | undefined;
+  } | null;
+  detail: string | null;
 };

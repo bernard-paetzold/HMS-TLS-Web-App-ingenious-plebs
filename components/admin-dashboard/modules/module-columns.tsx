@@ -1,7 +1,7 @@
 "use client";
 
 import { Column, ColumnDef } from "@tanstack/react-table";
-import { DjangoUser } from "../types";
+import { Module } from "../types";
 import { MoreHorizontal, ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,31 +14,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 
-export const columns: ColumnDef<DjangoUser>[] = [
+export const columns: ColumnDef<Module>[] = [
   {
-    accessorKey: "username",
-    header: ({ column }) => <SortHeader column={column} title="Username" />,
-  },
-  {
-    accessorKey: "first_name",
-    header: ({ column }) => <SortHeader column={column} title="First name" />,
-  },
-  {
-    accessorKey: "last_name",
-    header: ({ column }) => <SortHeader column={column} title="Last name" />,
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => <SortHeader column={column} title="Email" />,
-  },
-  {
-    accessorKey: "role",
-    header: ({ column }) => <SortHeader column={column} title="Role" />,
+    accessorKey: "code",
+    header: ({ column }) => <SortHeader column={column} title="Code" />,
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const user = row.original;
+      const mod = row.original;
 
       return (
         <DropdownMenu>
@@ -51,19 +35,28 @@ export const columns: ColumnDef<DjangoUser>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem asChild>
-              <Link href={`/admin/dashboard/users/view/${user.username}`}>
-                View user
+              <Link href={`/admin/dashboard/modules/view/${mod.code}`}>
+                View module
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href={`/admin/dashboard/users/edit/${user.username}`}>
-                Edit user
+              <Link href={`/admin/dashboard/modules/edit/${mod.code}`}>
+                Edit module
+              </Link>
+            </DropdownMenuItem>
+
+            {/* todo: add students and lecturers to modules*/}
+            <DropdownMenuItem asChild>
+              <Link href={`/admin/dashboard/modules/users/${mod.code}`}>
+                Add lecturer
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href={`/admin/dashboard/users/modules/${user.username}`}>
-                Edit modules
+              <Link
+                href={`/admin/dashboard/modules/users/${mod.code}?type=student`}
+              >
+                Add student
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -77,7 +70,7 @@ function SortHeader({
   column,
   title,
 }: {
-  column: Column<DjangoUser, unknown>;
+  column: Column<Module, unknown>;
   title: string;
 }) {
   return (
