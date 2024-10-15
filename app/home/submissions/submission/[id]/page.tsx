@@ -6,6 +6,7 @@ import { getSubmissionById } from "@/lib/actions/submissionRequests";
 import { getOtherUserById } from "@/lib/actions/users/getOtherUser";
 
 import Video from "next-video";
+import DownloadButton from "@/components/ui/DownloadButton";
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -56,6 +57,9 @@ export default async function Page({ params }: { params: { id: number } }) {
 
         <div className="comment">
           <p>{submission.comment}</p>
+        </div>
+        <div>
+          <DownloadButton submission={submission}></DownloadButton>
         </div>
         <div>
           <FeedbackForm

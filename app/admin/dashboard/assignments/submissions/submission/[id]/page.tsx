@@ -1,3 +1,5 @@
+"use server";
+
 import { TitleLink } from "@/components/ui/title-link";
 import { FeedbackForm } from "@/components/feedback/feedbackForm";
 import { getAssignmentById } from "@/lib/actions/assignmentRequest";
@@ -7,6 +9,8 @@ import { getOtherUserById } from "@/lib/actions/users/getOtherUser";
 
 import Video from "next-video";
 import DeleteSubmissionWithConfirmation from "@/components/ui/delete-submission-confirmation";
+
+import DownloadButton from "@/components/ui/DownloadButton";
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -59,6 +63,9 @@ export default async function Page({ params }: { params: { id: number } }) {
           <p>{submission.comment}</p>
         </div>
         <div>
+          <DownloadButton submission={submission}></DownloadButton>
+        </div>
+        <div>
           <DeleteSubmissionWithConfirmation
             submission={submission}
           ></DeleteSubmissionWithConfirmation>
@@ -75,7 +82,7 @@ export default async function Page({ params }: { params: { id: number } }) {
   );
 }
 
-function VideoPlayer({ id }: { id: number }) {
+async function VideoPlayer({ id }: { id: number }) {
   if (isNaN(id) || id == undefined) {
     return <></>;
   }

@@ -71,7 +71,7 @@ export default async function Page({ params }: { params: { code: string } }) {
       <section id="assignments">
         <h1 className="text-2xl font-bold mb-6">All Assignments</h1>
         <div className="flex flex-wrap gap-4 justify-center">
-          <AssignmentTable assignments={assignments} />
+          <AssignmentTable assignments={assignments} admin={false} />
         </div>
       </section>
     </main>
