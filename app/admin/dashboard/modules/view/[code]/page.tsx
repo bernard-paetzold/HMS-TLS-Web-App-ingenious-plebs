@@ -12,6 +12,8 @@ import Link from "next/link";
 import { getModule } from "@/lib/actions/modules/getModule";
 import { Suspense } from "react";
 import Fallback from "@/components/admin-dashboard/fallback/fallback";
+import { getModuleAssignmentsAsAdmin } from "@/lib/actions/assignmentRequest";
+import { Row } from "@/components/admin-dashboard/users/row";
 
 export default async function Page({ params }: { params: { code: string } }) {
   return (
@@ -41,23 +43,55 @@ async function ModuleWrapper({ code }: { code: string }) {
   }
 
   return (
+    <div className="flex flex-col gap-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>Module: {response.data.code}</CardTitle>
+          <CardDescription>View module details</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Code: {response.data.code}</p>
+        </CardContent>
+        <CardFooter>
+          <Button className="mr-2" asChild>
+            <Link href={`/admin/dashboard/modules/edit/${response.data.code}`}>
+              Edit module
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
+      <ModuleAssignments code={response.data.code} />
+    </div>
+  );
+}
+
+async function ModuleAssignments({ code }: { code: string }) {
+  const assignments = await getModuleAssignmentsAsAdmin(code);
+
+  return (
     <Card>
       <CardHeader>
-        <CardTitle>Module: {response.data.code}</CardTitle>
-        <CardDescription>View module details</CardDescription>
+        <CardTitle>Assignments</CardTitle>
+        <CardDescription>Assignments for this module</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="rounded-md border-l-4 border-blue-400 bg-neutral-50 p-2 shadow">
-          <p>Code: {response.data.code}</p>
-        </div>
+        {assignments.length > 0 ? (
+          <ul>
+            {assignments.map((assignment, i) => (
+              <Row key={assignment.id} noBorder={i === 0}>
+                <Link
+                  href={`/admin/dashboard/assignments/${assignment.id}`}
+                  className="underline underline-offset-2"
+                >
+                  {assignment.name}
+                </Link>
+              </Row>
+            ))}
+          </ul>
+        ) : (
+          <p>No assignments</p>
+        )}
       </CardContent>
-      <CardFooter>
-        <Button className="mr-2" asChild>
-          <Link href={`/admin/dashboard/modules/edit/${response.data.code}`}>
-            Edit module
-          </Link>
-        </Button>
-      </CardFooter>
     </Card>
   );
 }

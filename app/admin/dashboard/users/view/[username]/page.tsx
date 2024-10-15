@@ -1,17 +1,14 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import Link from "next/link";
 
 import { getOtherUser } from "@/lib/actions/users/getOtherUser";
 import { Suspense } from "react";
 import Fallback from "@/components/admin-dashboard/fallback/fallback";
+import { UserModules } from "@/components/admin-dashboard/users/user-modules";
+import { UserAssignments } from "@/components/admin-dashboard/users/user-assignments";
+import { UserSubmissions } from "@/components/admin-dashboard/users/user-submissions";
+import { UserInfo } from "@/components/admin-dashboard/users/user-info";
 
 export default async function Page({
   params,
@@ -27,13 +24,13 @@ export default async function Page({
 
 // Display either error message or user's info
 async function UserWrapper({ username }: { username: string }) {
-  const data = await getOtherUser(username);
+  const response = await getOtherUser(username);
 
-  if (data.errors) {
+  if (response.errors) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>{data.errors.detail}</CardTitle>
+          <CardTitle>{response.errors.detail}</CardTitle>
         </CardHeader>
         <CardFooter>
           <Button asChild>
@@ -44,34 +41,16 @@ async function UserWrapper({ username }: { username: string }) {
     );
   }
 
-  const user = data.user;
-
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Username: {username}</CardTitle>
-        <CardDescription>View user&apos;s information</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="rounded-md border-l-4 border-blue-400 bg-neutral-50 p-2 shadow">
-          <ul className="flex flex-col gap-1 text-lg">
-            <li>ID: {user.id}</li>
-            <li>Username: {user.username}</li>
-            <li>First name: {user.firstName}</li>
-            <li>Last name: {user.lastName}</li>
-            <li>Email: {user.email}</li>
-            <li>Role: {user.role}</li>
-            <li>Activated: {user.isActive ? "Yes" : "No"}</li>
-          </ul>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button className="mr-2" asChild>
-          <Link href={`/admin/dashboard/users/edit/${user.username}`}>
-            Edit user
-          </Link>
-        </Button>
-      </CardFooter>
-    </Card>
+    <div className="flex flex-col gap-4">
+      <UserInfo username={username} user={response.user} />
+      <UserModules username={username} />
+      {response.user.role === "lecturer" && (
+        <UserAssignments username={username} />
+      )}
+      {response.user.role === "student" && (
+        <UserSubmissions userID={response.user.id} />
+      )}
+    </div>
   );
 }

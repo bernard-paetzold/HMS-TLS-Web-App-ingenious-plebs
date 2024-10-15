@@ -27,7 +27,7 @@ export default function Error({
       >
         Try again
       </Button>
-      <Link className="underline underline-offset-1" href="/">
+      <Link className="underline underline-offset-2" href="/">
         Take me back
       </Link>
     </div>

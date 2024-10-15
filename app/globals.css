@@ -2,57 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-} */
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
-
 body {
-    /* color: var(--foreground);
-  background: var(--background); */
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
 @layer base {
-    :root {
-        --radius: 0.5rem;
-    }
+  :root {
+    --radius: 0.5rem;
+  }
 }
 
 .comment {
-    border-color: black;
-    border-width: 0.15em;
-    border-radius: 0.3em;
-    border-style: solid;
+  border-color: black;
+  border-width: 0.15em;
+  border-radius: 0.3em;
+  border-style: solid;
 
-    margin-top: 1em;
-    padding: 0.5em;
+  margin-top: 1em;
+  padding: 0.5em;
 }
 
 .card-with-border {
-    border: 2px solid black;
-    border-radius: 1em;
-    padding: 1em;
-    margin: 1em;
-    box-shadow: 0.2em 0px 0.2em 0px #9b9b9b;
-    cursor: pointer;
-    transition: all 0.2s;
+  border: 2px solid black;
+  border-radius: 1em;
+  padding: 1em;
+  margin: 1em;
+  box-shadow: 0.2em 0px 0.2em 0px #9b9b9b;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .card-with-border:hover {
-    transform: scale(1.05);
-    box-shadow: 0.5em 0px 0.5em 0px #9b9b9b;
+  transform: scale(1.05);
+  box-shadow: 0.5em 0px 0.5em 0px #9b9b9b;
 }
