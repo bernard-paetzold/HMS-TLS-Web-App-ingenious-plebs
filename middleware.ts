@@ -33,7 +33,9 @@ export async function middleware(request: NextRequest) {
     // Ensure admins are redirected to the admin dashboard if visiting non-admin dashboard or root url
     if (
       role === "admin" &&
-      (url.pathname.startsWith("/home") || url.pathname === "/admin")
+      (url.pathname.startsWith("/home") ||
+        url.pathname === "/admin" ||
+        url.pathname === "/api")
     ) {
       return NextResponse.redirect(new URL("/admin/dashboard", request.url));
     }
@@ -52,7 +54,7 @@ export async function middleware(request: NextRequest) {
           "Content-Type": "application/json",
           Authorization: session.token,
         },
-      }
+      },
     );
 
     // Token invalid, redirect to login and delete cookie
