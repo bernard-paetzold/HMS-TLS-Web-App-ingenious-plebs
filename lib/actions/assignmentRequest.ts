@@ -108,6 +108,34 @@ export async function getModuleAssignments(
   }
 }
 
+export async function getModuleAssignmentsAsAdmin(
+  code: string
+): Promise<assignment[]> {
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/assignment/admin_list_module_assignments/${code}/`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: assignment[] = await response.json();
+    return data;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    const data: assignment[] = [];
+    return data;
+  }
+}
+
 export async function getAssignmentById(
   id: number
 ): Promise<assignment | null> {
