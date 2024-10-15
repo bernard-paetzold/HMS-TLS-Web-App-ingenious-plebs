@@ -77,7 +77,7 @@ export default async function Page({ params }: { params: { id: number } }) {
             </div>
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="space-x-2">
           <DownloadButton submission={submission}></DownloadButton>
           <DeleteSubmissionWithConfirmation
             submission={submission}
