@@ -55,6 +55,12 @@ function buildNav(modules: module[]) {
             icon: Star,
             description: "Browse assignments from all modules",
           },
+          {
+            title: "Browse all submissions",
+            url: "/home/submissions",
+            icon: Star,
+            description: "Browse submissions from all assignments",
+          },
         ],
       },
     ],

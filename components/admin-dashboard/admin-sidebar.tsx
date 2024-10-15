@@ -44,13 +44,18 @@ const nav = {
     },
     {
       title: "Assignments",
-      url: `${rootURL}/assignments`,
+      url: `${rootURL}/assignments/`,
       icon: BookOpen,
       items: [
         {
-          title: "View",
+          title: "View all",
           url: `${rootURL}/assignments/view`,
           description: "View assignments",
+        },
+        {
+          title: "Student submissions",
+          url: `${rootURL}/assignments/submissions/`,
+          description: "View subissions",
         },
       ],
     },

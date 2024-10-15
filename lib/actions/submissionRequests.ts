@@ -124,3 +124,80 @@ export async function getUnmarkedSubmissionsByModule(
     return data;
   }
 }
+
+//Delete submission
+export async function deleteSubmission(submission: submission) {
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/submission/delete/${submission.id}/`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `HTTP error! status: ${response.status} - ${response.statusText}`,
+      );
+    }
+  } catch (error) {
+    console.error("An error occurred while deleting feedback:", error);
+    throw error;
+  }
+}
+
+export async function getAllSubmissions(): Promise<submission[]> {
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/submission/list_all_submissions/`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: submission[] = await response.json();
+    return data;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    const data: submission[] = [];
+    return data;
+  }
+}
+
+export async function getAllowedSubmissions(): Promise<submission[]> {
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/submission/list_allowed_submissions/`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: submission[] = await response.json();
+    return data;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    const data: submission[] = [];
+    return data;
+  }
+}

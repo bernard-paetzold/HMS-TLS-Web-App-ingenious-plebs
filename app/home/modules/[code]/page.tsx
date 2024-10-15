@@ -2,7 +2,7 @@ import { getModuleAssignments } from "@/lib/actions/assignmentRequest";
 import { AssignmentCard, SubmissionCard } from "@/components/home-page/cards";
 import { getUnmarkedSubmissionsByModule } from "@/lib/actions/submissionRequests";
 import CardScroller from "@/components/home-page/card-scroller";
-import { AssignmentTable } from "@/components/home-page/assignments/assignment";
+import { AssignmentTable } from "@/components/assignments/assignmentTable";
 import { getOtherUserById } from "@/lib/actions/users/getOtherUser";
 
 export default async function Page({ params }: { params: { code: string } }) {

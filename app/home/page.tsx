@@ -1,5 +1,5 @@
 import { module } from "@/lib/definitions";
-import { assignmentRequest } from "@/lib/actions/assignmentRequest";
+import { getAllowedAssignments } from "@/lib/actions/assignmentRequest";
 import {
   AssignmentCard,
   ModuleCard,
@@ -12,7 +12,7 @@ import { getOtherUserById } from "@/lib/actions/users/getOtherUser";
 
 export default async function Page() {
   let [assignments, submissions] = await Promise.all([
-    assignmentRequest(),
+    getAllowedAssignments(),
     getUnmarkedSubmissions(),
   ]);
 
@@ -36,7 +36,7 @@ export default async function Page() {
 
   return (
     <main className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-6">Home</h1>
+      <h1 className="text-3xl font-bold mb-6 pt-4">Home</h1>
       <section id="modules">
         <h2 className="text-2xl font-bold mb-6">Modules</h2>
         <CardScroller>

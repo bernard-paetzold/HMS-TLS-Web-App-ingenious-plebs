@@ -1,14 +1,21 @@
 "use server";
 
-import { columns } from "@/components/home-page/assignments/assignment-columns";
+import {
+  userColumns,
+  adminColumns,
+} from "@/components/assignments/assignment-columns";
 import { DataTable } from "@/components/ui/data-table-hidden";
 import { assignment } from "@/lib/definitions";
 
 export async function AssignmentTable({
   assignments,
+  admin,
 }: {
   assignments: assignment[];
+  admin: boolean;
 }) {
+  const columns = admin ? adminColumns : userColumns;
+
   const TableComponent = () => {
     const table = (
       <DataTable

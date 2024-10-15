@@ -8,6 +8,11 @@ export default function Page() {
       href: "/admin/dashboard/assignments/view",
       icon: <Eye size={21} />,
     },
+    {
+      title: "View submissions",
+      href: "/admin/dashboard/assignments/submissions/",
+      icon: <Eye size={21} />,
+    },
   ];
 
   return <MainPageNav nav={nav} />;

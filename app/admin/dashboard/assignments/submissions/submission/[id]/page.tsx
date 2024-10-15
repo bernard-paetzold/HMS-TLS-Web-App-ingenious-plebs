@@ -6,6 +6,7 @@ import { getSubmissionById } from "@/lib/actions/submissionRequests";
 import { getOtherUserById } from "@/lib/actions/users/getOtherUser";
 
 import Video from "next-video";
+import DeleteSubmissionWithConfirmation from "@/components/ui/delete-submission-confirmation";
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -56,6 +57,11 @@ export default async function Page({ params }: { params: { id: number } }) {
 
         <div className="comment">
           <p>{submission.comment}</p>
+        </div>
+        <div>
+          <DeleteSubmissionWithConfirmation
+            submission={submission}
+          ></DeleteSubmissionWithConfirmation>
         </div>
         <div>
           <FeedbackForm

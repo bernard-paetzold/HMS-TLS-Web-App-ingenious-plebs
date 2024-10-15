@@ -1,9 +1,9 @@
 import { submission } from "@/lib/definitions";
-import { getAllowedSubmissions } from "@/lib/actions/submissionRequests";
+import { getAllSubmissions } from "@/lib/actions/submissionRequests";
 import { SubmissionTable } from "@/components/submissions/submissionTable";
 
 export default async function Page() {
-  const submissions: submission[] = await getAllowedSubmissions();
+  const submissions: submission[] = await getAllSubmissions();
 
   return (
     <main className="container mx-auto px-4">
@@ -11,7 +11,7 @@ export default async function Page() {
       <div className="flex flex-wrap gap-4 justify-center">
         <SubmissionTable
           submissions={submissions}
-          admin={false}
+          admin={true}
         ></SubmissionTable>
       </div>
     </main>

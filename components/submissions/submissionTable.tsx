@@ -1,14 +1,21 @@
 "use server";
 
-import { columns } from "@/components/home-page/submissions/submission-columns";
+import {
+  userColumns,
+  adminColumns,
+} from "@/components/submissions/submission-columns";
 import { DataTable } from "@/components/ui/data-table-hidden";
 import { submission } from "@/lib/definitions";
 
 export async function SubmissionTable({
   submissions,
+  admin,
 }: {
   submissions: submission[];
+  admin: boolean;
 }) {
+  const columns = admin ? adminColumns : userColumns;
+
   const TableComponent = () => {
     const table = (
       <DataTable
