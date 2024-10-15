@@ -5,6 +5,8 @@ import CardScroller from "@/components/home-page/card-scroller";
 import { AssignmentTable } from "@/components/assignments/assignmentTable";
 import { getOtherUserById } from "@/lib/actions/users/getOtherUser";
 
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 export default async function Page({ params }: { params: { code: string } }) {
   let [assignments, submissions] = await Promise.all([
     getModuleAssignments(params.code),
@@ -22,58 +24,67 @@ export default async function Page({ params }: { params: { code: string } }) {
   const submissionsWithUsers = await Promise.all(
     submissions.map(async (submission) => {
       const user = await getOtherUserById(submission.user);
-      console.log(user);
       return { submission, user };
-    }),
+    })
   );
 
   return (
-    <main className="container mx-auto px-4">
-      <h1 className="text-2xl font-bold mb-6">{params.code}</h1>
-      <section id="recent-assignments">
-        <h2 className="text-xl font-bold mb-6">Recent Assignments</h2>
-        <CardScroller>
-          <div className="flex gap-4 pb-4">
-            {assignments && assignments.length > 0 ? (
-              assignments.map((assignment) => (
-                <div key={assignment.id} className="flex-shrink-0 w-64">
-                  <AssignmentCard assignment={assignment} />
-                </div>
-              ))
-            ) : (
-              <p>No assignments available.</p>
-            )}
-          </div>
-        </CardScroller>
-      </section>
-      <section id="unmarked-submissions">
-        <h2 className="text-xl font-bold mb-6">Unmarked Submissions</h2>
-        <CardScroller>
-          <div className="flex gap-4 pb-4">
-            {submissionsWithUsers && submissionsWithUsers.length > 0 ? (
-              submissionsWithUsers.map((submissionWithUser) => (
-                <div
-                  key={submissionWithUser.submission.id}
-                  className="flex-shrink-0 w-64"
-                >
-                  <SubmissionCard
-                    submission={submissionWithUser.submission}
-                    user={submissionWithUser.user}
-                  />
-                </div>
-              ))
-            ) : (
-              <p className="pb-4">No unmarked submissions.</p>
-            )}
-          </div>
-        </CardScroller>
-      </section>
-      <section id="assignments">
-        <h1 className="text-2xl font-bold mb-6">All Assignments</h1>
-        <div className="flex flex-wrap gap-4 justify-center">
+    <div className="flex flex-col gap-4">
+      <h1 className="text-3xl font-bold pt-4">{params.code}</h1>
+      <Card>
+        <CardHeader id="recent-assignments">
+          <CardTitle>Recent Assignments</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <CardScroller>
+            <div className="flex gap-4 pb-4">
+              {assignments && assignments.length > 0 ? (
+                assignments.map((assignment) => (
+                  <div key={assignment.id} className="flex-shrink-0 w-64">
+                    <AssignmentCard assignment={assignment} />
+                  </div>
+                ))
+              ) : (
+                <p>No assignments available.</p>
+              )}
+            </div>
+          </CardScroller>
+        </CardContent>
+      </Card>
+      <Card id="unmarked-submissions">
+        <CardHeader>
+          <CardTitle>Unmarked Submissions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <CardScroller>
+            <div className="flex gap-4 pb-4">
+              {submissionsWithUsers && submissionsWithUsers.length > 0 ? (
+                submissionsWithUsers.map((submissionWithUser) => (
+                  <div
+                    key={submissionWithUser.submission.id}
+                    className="flex-shrink-0 w-64"
+                  >
+                    <SubmissionCard
+                      submission={submissionWithUser.submission}
+                      user={submissionWithUser.user}
+                    />
+                  </div>
+                ))
+              ) : (
+                <p className="pb-4">No unmarked submissions.</p>
+              )}
+            </div>
+          </CardScroller>
+        </CardContent>
+      </Card>
+      <Card id="assignments">
+        <CardHeader>
+          <CardTitle>All Assignments</CardTitle>
+        </CardHeader>
+        <CardContent>
           <AssignmentTable assignments={assignments} admin={false} />
-        </div>
-      </section>
-    </main>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
