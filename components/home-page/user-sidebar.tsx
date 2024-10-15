@@ -37,7 +37,7 @@ function buildNav(modules: module[]) {
       },
       {
         title: "Assignments",
-        url: "#",
+        url: "/home/assignments",
         icon: Book,
         isActive: true,
         items: [
