@@ -69,7 +69,7 @@ export async function addStudentToModule(
     console.log(error);
     return {
       errors: {
-        detail: "An unexpected error occured",
+        detail: "An unexpected error occurred",
       },
     };
   }

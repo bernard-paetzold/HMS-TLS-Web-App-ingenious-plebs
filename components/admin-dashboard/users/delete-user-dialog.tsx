@@ -41,7 +41,7 @@ export default function DeleteUserDialog({ username }: { username: string }) {
               const response = await deleteUser(username);
               if (response.errors) {
                 toast({
-                  title: "An error occured",
+                  title: "An error occurred",
                   description: response.errors.detail,
                 });
                 return;

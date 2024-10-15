@@ -43,7 +43,7 @@ export async function getOwnUser(): Promise<Response> {
     console.log(error);
     return {
       errors: {
-        detail: "An unexpected error occured",
+        detail: "An unexpected error occurred",
       },
     };
   }
