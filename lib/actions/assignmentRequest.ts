@@ -5,16 +5,13 @@ import { getToken } from "../session";
 
 export async function assignmentRequest(): Promise<assignment[]> {
   try {
-    const response = await fetch(
-      `${process.env.BACKEND_URL}/assignment/list_allowed_lecturer`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: getToken(),
-        },
+    const response = await fetch(`${process.env.BACKEND_URL}/assignment/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: getToken(),
       },
-    );
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -39,7 +36,35 @@ export async function getAllowedAssignments(): Promise<assignment[]> {
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: assignment[] = await response.json();
+    return data;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    const data: assignment[] = [];
+    return data;
+  }
+}
+
+export async function getLecturerAssignments(
+  username: string
+): Promise<assignment[]> {
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/assignment/list_lecturer_assignments/${username}/`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+      }
     );
 
     if (!response.ok) {
@@ -56,7 +81,7 @@ export async function getAllowedAssignments(): Promise<assignment[]> {
 }
 
 export async function getModuleAssignments(
-  code: string,
+  code: string
 ): Promise<assignment[]> {
   try {
     const response = await fetch(
@@ -67,7 +92,7 @@ export async function getModuleAssignments(
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
     );
 
     if (!response.ok) {
@@ -84,7 +109,7 @@ export async function getModuleAssignments(
 }
 
 export async function getAssignmentById(
-  id: number,
+  id: number
 ): Promise<assignment | null> {
   try {
     const response = await fetch(
@@ -95,7 +120,7 @@ export async function getAssignmentById(
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
     );
 
     if (!response.ok) {
@@ -132,12 +157,12 @@ export async function createAssignment(data: {
           Authorization: getToken(),
         },
         body: JSON.stringify(data),
-      },
+      }
     );
 
     if (!response.ok) {
       throw new Error(
-        `HTTP error! status: ${response.status} - ${response.statusText}`,
+        `HTTP error! status: ${response.status} - ${response.statusText}`
       );
     }
 
@@ -158,7 +183,7 @@ export async function updateAssignment(
     marks?: number;
     assignment_info?: string;
   },
-  id: number,
+  id: number
 ) {
   try {
     const response = await fetch(
@@ -170,12 +195,12 @@ export async function updateAssignment(
           Authorization: getToken(),
         },
         body: JSON.stringify(data),
-      },
+      }
     );
 
     if (!response.ok) {
       throw new Error(
-        `HTTP error! status: ${response.status} - ${response.statusText}`,
+        `HTTP error! status: ${response.status} - ${response.statusText}`
       );
     }
 
@@ -198,12 +223,12 @@ export async function deleteAssignment(assignment: assignment) {
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
     );
 
     if (!response.ok) {
       throw new Error(
-        `HTTP error! status: ${response.status} - ${response.statusText}`,
+        `HTTP error! status: ${response.status} - ${response.statusText}`
       );
     }
   } catch (error) {

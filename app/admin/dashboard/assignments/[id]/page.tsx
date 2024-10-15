@@ -19,7 +19,7 @@ function formatDate(date: Date) {
 export default async function Page({ params }: { params: { id: number } }) {
   const assignment: assignment | null = await getAssignmentById(params.id);
   const submissions: submission[] = await getSubmissionByAssignmentId(
-    params.id,
+    params.id
   );
 
   if (!assignment) {
@@ -42,7 +42,7 @@ export default async function Page({ params }: { params: { id: number } }) {
         <div className="mt-4 space-x-4">
           <LinkButton
             title={"Edit"}
-            target={`/home/assignments/edit/${params.id}`}
+            target={`/admin/dashboard/assignments/edit/${params.id}`}
           ></LinkButton>
           <DeleteAssignmentWithConfirmation
             assignment={assignment}

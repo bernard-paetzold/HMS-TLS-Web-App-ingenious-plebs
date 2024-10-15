@@ -4,7 +4,7 @@ import { submission } from "../definitions";
 import { getToken } from "../session";
 
 export async function getSubmissionById(
-  id: number,
+  id: number
 ): Promise<submission | null> {
   try {
     if (isNaN(id) || id == undefined) {
@@ -19,7 +19,7 @@ export async function getSubmissionById(
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
     );
 
     if (!response.ok) {
@@ -39,7 +39,7 @@ export async function getSubmissionById(
 }
 
 export async function getSubmissionByAssignmentId(
-  id: number,
+  id: number
 ): Promise<submission[]> {
   try {
     if (isNaN(id)) {
@@ -55,7 +55,7 @@ export async function getSubmissionByAssignmentId(
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
     );
 
     if (!response.ok) {
@@ -81,7 +81,7 @@ export async function getUnmarkedSubmissions(): Promise<submission[]> {
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
     );
 
     if (!response.ok) {
@@ -98,7 +98,7 @@ export async function getUnmarkedSubmissions(): Promise<submission[]> {
 }
 
 export async function getUnmarkedSubmissionsByModule(
-  code: string,
+  code: string
 ): Promise<submission[]> {
   try {
     const response = await fetch(
@@ -109,7 +109,7 @@ export async function getUnmarkedSubmissionsByModule(
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
     );
 
     if (!response.ok) {
@@ -136,12 +136,12 @@ export async function deleteSubmission(submission: submission) {
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
     );
 
     if (!response.ok) {
       throw new Error(
-        `HTTP error! status: ${response.status} - ${response.statusText}`,
+        `HTTP error! status: ${response.status} - ${response.statusText}`
       );
     }
   } catch (error) {
@@ -160,7 +160,7 @@ export async function getAllSubmissions(): Promise<submission[]> {
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
     );
 
     if (!response.ok) {
@@ -186,7 +186,35 @@ export async function getAllowedSubmissions(): Promise<submission[]> {
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: submission[] = await response.json();
+    return data;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    const data: submission[] = [];
+    return data;
+  }
+}
+
+export async function getUserSubmissions(
+  userID: number
+): Promise<submission[]> {
+  try {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/submission/list_user_submissions/${userID}/`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getToken(),
+        },
+      }
     );
 
     if (!response.ok) {
