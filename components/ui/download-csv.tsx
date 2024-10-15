@@ -45,7 +45,7 @@ export default function DownloadCSVButton({
     if (assignment) {
       const ws = utils.json_to_sheet(feedback);
       const wb = utils.book_new();
-      utils.book_append_sheet(wb, ws, "Data");
+      utils.book_append_sheet(wb, ws, "Feedback");
       writeFileXLSX(wb, `${assignment?.name ?? "invalid"}.xlsx`);
     }
   }, [feedback]);
