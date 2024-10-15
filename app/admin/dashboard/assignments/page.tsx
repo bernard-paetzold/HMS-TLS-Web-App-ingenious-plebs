@@ -1,19 +1,11 @@
-import { Eye } from "lucide-react";
 import MainPageNav from "@/components/ui/main-page-nav";
+import { navItems } from "@/components/admin-dashboard/nav-items";
 
 export default function Page() {
-  const nav = [
-    {
-      title: "View assignments",
-      href: "/admin/dashboard/assignments/view",
-      icon: <Eye size={21} />,
-    },
-    {
-      title: "View submissions",
-      href: "/admin/dashboard/assignments/submissions/",
-      icon: <Eye size={21} />,
-    },
-  ];
-
-  return <MainPageNav nav={nav} />;
+  return (
+    <div>
+      <h2 className="text-2xl font-semibold mb-1">Assignments</h2>
+      <MainPageNav nav={navItems.assignments} />
+    </div>
+  );
 }
