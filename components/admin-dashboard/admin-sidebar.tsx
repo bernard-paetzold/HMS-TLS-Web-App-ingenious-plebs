@@ -64,13 +64,6 @@ const nav = {
       title: "Logs",
       url: `${rootURL}/logs`,
       icon: SquareTerminal,
-      items: [
-        {
-          title: "View",
-          url: `${rootURL}/logs/view`,
-          description: "View logs",
-        },
-      ],
     },
   ],
 };
