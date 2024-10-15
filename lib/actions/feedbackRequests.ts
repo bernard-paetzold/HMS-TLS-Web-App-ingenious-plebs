@@ -98,12 +98,17 @@ export async function submitFeedback(data: {
   }
 }
 
-/*export async function getSubmissionByAssignmentId(
+export async function getFeedbackByAssignmentId(
   id: number,
 ): Promise<feedback[]> {
   try {
+    if (isNaN(id)) {
+      const data: feedback[] = [];
+      return data;
+    }
+
     const response = await fetch(
-      `${process.env.BACKEND_URL}/submission/list_assignment_submissions/${id}/`,
+      `${process.env.BACKEND_URL}/feedback/assignment_feedback/${id}/`,
       {
         method: "GET",
         headers: {
@@ -117,11 +122,11 @@ export async function submitFeedback(data: {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data: submission[] = await response.json();
+    const data: feedback[] = await response.json();
     return data;
   } catch (error) {
     console.error("An error occurred:", error);
-    const data: submission[] = [];
+    const data: feedback[] = [];
     return data;
   }
-}*/
+}

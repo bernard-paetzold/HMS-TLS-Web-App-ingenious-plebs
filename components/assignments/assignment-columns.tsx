@@ -10,6 +10,7 @@ import { TitleLink } from "../ui/title-link";
 
 import { useRouter } from "next/navigation";
 import DeleteAssignmentWithConfirmation from "../ui/delete-assignment-confirmation";
+import DownloadCSVButton from "../ui/download-csv";
 
 export const userColumns: ColumnDef<assignment>[] = [
   {
@@ -87,6 +88,7 @@ export const userColumns: ColumnDef<assignment>[] = [
           <Button onClick={handleEditButtonClick} variant="outline" size="sm">
             Edit
           </Button>
+          <DownloadCSVButton assignment={assignment}></DownloadCSVButton>
         </div>
       );
     },
@@ -169,6 +171,7 @@ export const adminColumns: ColumnDef<assignment>[] = [
           <Button onClick={handleEditButtonClick} variant="outline" size="sm">
             Edit
           </Button>
+          <DownloadCSVButton assignment={assignment}></DownloadCSVButton>
           <DeleteAssignmentWithConfirmation
             assignment={assignment}
           ></DeleteAssignmentWithConfirmation>
