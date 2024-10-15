@@ -14,14 +14,16 @@ import { FormError } from "@/components/ui/form-error";
 import { useState } from "react";
 import { User, UserEditSubmit, UserFormErrors } from "../types";
 
-export default function UserInfoCard({
+export default function EditUserInfoCard({
   user,
   formErrors,
   handleSubmit,
+  isSameUser = false,
 }: {
   user: User;
   formErrors: UserFormErrors;
   handleSubmit: UserEditSubmit;
+  isSameUser?: boolean;
 }) {
   const [role, setRole] = useState(user.role);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,18 +43,20 @@ export default function UserInfoCard({
           onSubmit={async (e) => await handleSubmit(e, "info", setIsLoading)}
         >
           <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="username">Username</Label>
-              {formErrors.fields?.username && (
-                <FormError>{formErrors.fields?.username[0]}</FormError>
-              )}
-              <Input
-                id="username"
-                name="username"
-                type="text"
-                placeholder={user.username}
-              />
-            </div>
+            {!isSameUser && (
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="username">Username</Label>
+                {formErrors.fields?.username && (
+                  <FormError>{formErrors.fields?.username[0]}</FormError>
+                )}
+                <Input
+                  id="username"
+                  name="username"
+                  type="text"
+                  placeholder={user.username}
+                />
+              </div>
+            )}
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="firstName">First Name</Label>
               {formErrors.fields?.firstName && (
@@ -89,33 +93,35 @@ export default function UserInfoCard({
                 placeholder={user.email}
               />
             </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="role">Role</Label>
-              {formErrors.fields?.role && (
-                <FormError>{formErrors.fields?.role[0]}</FormError>
-              )}
-              <input
-                type="hidden"
-                id="role"
-                name="role"
-                value={role !== initRole ? role : ""}
-              />
-              <Combobox
-                content={[
-                  {
-                    value: "student",
-                    label: "Student",
-                  },
-                  {
-                    value: "lecturer",
-                    label: "Lecturer",
-                  },
-                ]}
-                contentType="role"
-                value={role}
-                setValue={setRole}
-              />
-            </div>
+            {initRole !== "admin" && (
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="role">Role</Label>
+                {formErrors.fields?.role && (
+                  <FormError>{formErrors.fields?.role[0]}</FormError>
+                )}
+                <input
+                  type="hidden"
+                  id="role"
+                  name="role"
+                  value={role !== initRole ? role : ""}
+                />
+                <Combobox
+                  content={[
+                    {
+                      value: "student",
+                      label: "Student",
+                    },
+                    {
+                      value: "lecturer",
+                      label: "Lecturer",
+                    },
+                  ]}
+                  contentType="role"
+                  value={role}
+                  setValue={setRole}
+                />
+              </div>
+            )}
             <Button type="submit" disabled={isLoading}>
               Update
             </Button>

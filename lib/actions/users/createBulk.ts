@@ -83,7 +83,7 @@ export async function createBulk(data: string): Promise<Response> {
     console.log(error);
     return {
       errors: {
-        detail: "An unexpected error occured",
+        detail: "An unexpected error occurred",
       },
     };
   }

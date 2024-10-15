@@ -1,9 +1,8 @@
 "use server";
 
-import { DjangoUser } from "@/components/admin-dashboard/types";
+import { User, DjangoUser } from "@/components/admin-dashboard/types";
 
 import { getToken } from "@/lib/session";
-import { revalidatePath } from "next/cache";
 
 type Response =
   | { user: User; errors?: never }
@@ -19,13 +18,12 @@ export async function getOtherUser(username: string): Promise<Response> {
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
     );
 
     const data = await response.json();
 
     if (response.ok) {
-      revalidatePath("/admin/dashboard/edit/[username]", "page");
       return {
         user: {
           id: data.id,
@@ -48,7 +46,7 @@ export async function getOtherUser(username: string): Promise<Response> {
     console.log(error);
     return {
       errors: {
-        detail: "An unexpected error occured",
+        detail: "An unexpected error occurred",
       },
     };
   }
@@ -64,7 +62,7 @@ export async function getOtherUserById(id: number): Promise<DjangoUser | null> {
           "Content-Type": "application/json",
           Authorization: getToken(),
         },
-      },
+      }
     );
 
     if (!response.ok) {

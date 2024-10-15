@@ -1,15 +1,16 @@
 "use server";
 
-import { Module } from "@/components/admin-dashboard/types";
+import { User } from "@/components/admin-dashboard/types";
+
 import { getToken } from "@/lib/session";
 
 type Response =
-  | { modules: Module[]; errors?: never }
-  | { modules?: never; errors: { detail?: string } };
+  | { user: User; errors?: never }
+  | { user?: never; errors: { detail?: string } };
 
-export async function getAllModules(): Promise<Response> {
+export async function getOwnUser(): Promise<Response> {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/module/list/`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/users/edit/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +22,15 @@ export async function getAllModules(): Promise<Response> {
 
     if (response.ok) {
       return {
-        modules: data,
+        user: {
+          id: data.id,
+          username: data.username,
+          firstName: data.first_name,
+          lastName: data.last_name,
+          email: data.email,
+          role: data.role,
+          isActive: data.is_active,
+        },
       };
     } else {
       return {

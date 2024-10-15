@@ -2,26 +2,29 @@
 
 import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { updateUser } from "@/lib/actions/users/updateUser";
-import EditUserInfoCard from "./edit-user-info-card";
 import UpdatePasswordCard from "./update-password-card";
-import UpdateActiveCard from "./update-active-card";
-import DeleteCard from "./delete-card";
 import { User, UserEditSubmit, UserFormErrors } from "../types";
 import { useRouter } from "next/navigation";
-import EditModulesRedirectCard from "./edit-modules-redirect-card";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { updateOwnUser } from "@/lib/actions/users/updateOwnUser";
+import EditUserInfoCard from "./edit-user-info-card";
 
-export default function EditUserForm({ user }: { user: User }) {
+type Data =
+  | { user: User; errors?: never }
+  | { user?: never; errors: { detail?: string } };
+
+const noFormErrors = {
+  fields: null,
+  detail: null,
+};
+
+export default function EditOwnForm({ data }: { data: Data }) {
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
-  const [optimisticUser, setOptimisticUser] = useState(user);
+  const [optimisticUser, setOptimisticUser] = useState(data.user);
   const router = useRouter();
-
-  const noFormErrors = {
-    fields: null,
-    detail: null,
-  };
   const [formErrors, setFormErrors] = useState<UserFormErrors>(noFormErrors);
-
   const { toast } = useToast();
 
   function resetErrors() {
@@ -37,11 +40,7 @@ export default function EditUserForm({ user }: { user: User }) {
     setFormErrors(noFormErrors);
 
     const formData = new FormData(e.target);
-    const response = await updateUser(
-      formData,
-      content,
-      optimisticUser.username
-    );
+    const response = await updateOwnUser(formData, content);
 
     if (response?.errors) {
       setFormErrors((formErrors) => ({
@@ -52,16 +51,9 @@ export default function EditUserForm({ user }: { user: User }) {
       setOptimisticUser(response.user);
       setPasswordDialogOpen(false);
 
-      // No need to redirect to update URL
-      window.history.replaceState(
-        null,
-        "",
-        `/admin/dashboard/users/edit/${response.user.username}`
-      );
-
       toast({
         title: "Updated",
-        description: `User ${content} successfully updated`,
+        description: `Account successfully updated`,
       });
     }
 
@@ -73,18 +65,29 @@ export default function EditUserForm({ user }: { user: User }) {
     router.refresh();
   }, []);
 
+  if (data.errors) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>{data.errors.detail}</CardTitle>
+        </CardHeader>
+        <CardFooter>
+          <Button asChild>
+            <Link href={"/"}>Take me back</Link>
+          </Button>
+        </CardFooter>
+      </Card>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <EditUserInfoCard
-        user={optimisticUser}
+        user={optimisticUser!}
         formErrors={formErrors}
         handleSubmit={handleSubmit}
+        isSameUser
       />
-
-      {optimisticUser.role !== "admin" && (
-        <EditModulesRedirectCard username={optimisticUser.username} />
-      )}
-
       <UpdatePasswordCard
         formErrors={formErrors}
         handleSubmit={handleSubmit}
@@ -94,17 +97,6 @@ export default function EditUserForm({ user }: { user: User }) {
           setPasswordDialogOpen((open) => !open);
         }}
       />
-      <UpdateActiveCard
-        user={optimisticUser}
-        onActiveChange={() =>
-          setOptimisticUser((user) => ({
-            ...user,
-            isActive: !user.isActive,
-          }))
-        }
-      />
-
-      <DeleteCard username={optimisticUser.username} />
     </div>
   );
 }

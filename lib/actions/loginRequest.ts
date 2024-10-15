@@ -91,7 +91,7 @@ export async function loginRequest(
         success = true;
         role = newData.role;
       } else {
-        // Unexpected error occured
+        // Unexpected error occurred
         throw Error(JSON.stringify(newData));
       }
     } else if (response.status === 400) {
@@ -101,14 +101,14 @@ export async function loginRequest(
         },
       };
     } else {
-      // Unexpected error occured
+      // Unexpected error occurred
       throw Error(JSON.stringify(data));
     }
   } catch (error) {
     console.log(error);
     return {
       errors: {
-        detail: "An unexpected error occured",
+        detail: "An unexpected error occurred",
       },
     };
   } finally {

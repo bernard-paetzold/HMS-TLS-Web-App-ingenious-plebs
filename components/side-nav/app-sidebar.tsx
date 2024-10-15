@@ -1,6 +1,6 @@
 "use client";
 
-import { BrainCog, LucideIcon } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
@@ -12,25 +12,14 @@ import {
   SidebarItem,
   SidebarLabel,
 } from "@/components/ui/sidebar";
-import { OrganisationSwitcher } from "./sidebar-header";
-const data = {
-  organisations: [
-    {
-      name: "HMS TLS",
-      logo: BrainCog,
-      plan: "",
-    },
-  ],
-};
+import { Header } from "./header";
+import { User } from "../admin-dashboard/types";
 
 export function AppSidebar({
   user,
   nav,
 }: {
-  user: {
-    username: string;
-    email: string;
-  };
+  user: User;
   nav: {
     main: {
       title: string;
@@ -47,7 +36,7 @@ export function AppSidebar({
   return (
     <Sidebar>
       <SidebarHeader>
-        <OrganisationSwitcher organisations={data.organisations} />
+        <Header />
       </SidebarHeader>
       <SidebarContent>
         <SidebarItem>

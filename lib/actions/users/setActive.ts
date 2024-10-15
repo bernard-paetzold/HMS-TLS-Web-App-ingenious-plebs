@@ -40,7 +40,7 @@ export async function setActive(
     console.log(error);
     return {
       errors: {
-        detail: "An unexpected error occured",
+        detail: "An unexpected error occurred",
       },
     };
   }

@@ -51,7 +51,7 @@ export default function StudentCommandItem({
 
                 if (response.errors) {
                   toast({
-                    title: "An error occured",
+                    title: "An error occurred",
                     description: response.errors.detail,
                   });
                   return;

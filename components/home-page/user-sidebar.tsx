@@ -4,15 +4,13 @@ import { module } from "@/lib/definitions";
 import { AppSidebar } from "../side-nav/app-sidebar";
 
 import { History, Star, University, Component, Book } from "lucide-react";
+import { User } from "../admin-dashboard/types";
 
 export function UserSidebar({
   user,
   modules,
 }: {
-  user: {
-    username: string;
-    email: string;
-  };
+  user: User;
   modules: module[];
 }) {
   return <AppSidebar user={user} nav={buildNav(modules)} />;

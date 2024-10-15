@@ -42,7 +42,7 @@ export default function DeleteModuleDialog({ code }: Module) {
               const response = await deleteModule(code);
               if (response.errors) {
                 toast({
-                  title: "An error occured",
+                  title: "An error occurred",
                   description: response.errors.detail,
                 });
                 return;

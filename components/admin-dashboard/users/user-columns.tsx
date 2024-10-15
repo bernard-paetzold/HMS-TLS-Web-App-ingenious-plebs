@@ -61,11 +61,13 @@ export const columns: ColumnDef<DjangoUser>[] = [
                 Edit user
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href={`/admin/dashboard/users/modules/${user.username}`}>
-                Edit modules
-              </Link>
-            </DropdownMenuItem>
+            {user.role !== "admin" && (
+              <DropdownMenuItem asChild>
+                <Link href={`/admin/dashboard/users/modules/${user.username}`}>
+                  Edit modules
+                </Link>
+              </DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       );

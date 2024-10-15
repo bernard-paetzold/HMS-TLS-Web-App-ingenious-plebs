@@ -12,10 +12,9 @@ const passwordValidation = new RegExp(
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*()\[\]{};':"\\|,.<>\/`~\-=+]).{8,}$/
 );
 
-export async function updateUser(
+export async function updateOwnUser(
   formData: FormData,
-  content: "info" | "password",
-  username: string
+  content: "info" | "password"
 ): Promise<Response> {
   const empty = z
     .string()
@@ -56,11 +55,11 @@ export async function updateUser(
   const validatedFields =
     content === "info"
       ? infoSchema.safeParse({
-          username: formData.get("username"),
+          username: formData.get("username") || "",
           first_name: formData.get("firstName"),
           last_name: formData.get("lastName"),
           email: formData.get("email"),
-          role: formData.get("role"),
+          role: formData.get("role") || "",
         })
       : passwordSchema.safeParse({
           password: formData.get("password"),
@@ -74,17 +73,14 @@ export async function updateUser(
   }
 
   try {
-    const response = await fetch(
-      `${process.env.BACKEND_URL}/users/edit/${username}/`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: getToken(),
-        },
-        body: JSON.stringify(validatedFields.data),
-      }
-    );
+    const response = await fetch(`${process.env.BACKEND_URL}/users/edit/`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: getToken(),
+      },
+      body: JSON.stringify(validatedFields.data),
+    });
 
     const data = await response.json();
 
