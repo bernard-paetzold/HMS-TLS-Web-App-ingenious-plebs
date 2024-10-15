@@ -12,15 +12,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { logoutRequest } from "@/lib/actions/logoutRequest";
 import Link from "next/link";
+import { User } from "../admin-dashboard/types";
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    username: string;
-    email: string;
-  };
-}) {
+export function NavUser({ user }: { user: User }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="w-full rounded-md outline-none ring-neutral-950 hover:bg-neutral-100 focus-visible:ring-2 data-[state=open]:bg-neutral-100 dark:ring-neutral-300 dark:hover:bg-neutral-800 dark:data-[state=open]:bg-neutral-800">
@@ -63,7 +57,13 @@ export function NavUser({
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href={"/admin/dashboard/account/"}>
+            <Link
+              href={
+                user.role === "admin"
+                  ? "/admin/dashboard/account/"
+                  : "/home/account/"
+              }
+            >
               <BadgeCheck className="mr-2 h-4 w-4 text-neutral-500 dark:text-neutral-400" />
               Account
             </Link>

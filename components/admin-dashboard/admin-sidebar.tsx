@@ -3,6 +3,7 @@
 import { AppSidebar } from "../side-nav/app-sidebar";
 
 import { BookOpen, SquareTerminal, User, Box } from "lucide-react";
+import { User as UserType } from "./types";
 
 const rootURL = "/admin/dashboard";
 const nav = {
@@ -69,13 +70,6 @@ const nav = {
   ],
 };
 
-export function AdminSidebar({
-  user,
-}: {
-  user: {
-    username: string;
-    email: string;
-  };
-}) {
+export function AdminSidebar({ user }: { user: UserType }) {
   return <AppSidebar user={user} nav={nav} />;
 }

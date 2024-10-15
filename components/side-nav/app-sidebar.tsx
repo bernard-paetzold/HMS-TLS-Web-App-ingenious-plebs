@@ -13,6 +13,7 @@ import {
   SidebarLabel,
 } from "@/components/ui/sidebar";
 import { OrganisationSwitcher } from "./sidebar-header";
+import { User } from "../admin-dashboard/types";
 const data = {
   organisations: [
     {
@@ -27,10 +28,7 @@ export function AppSidebar({
   user,
   nav,
 }: {
-  user: {
-    username: string;
-    email: string;
-  };
+  user: User;
   nav: {
     main: {
       title: string;
