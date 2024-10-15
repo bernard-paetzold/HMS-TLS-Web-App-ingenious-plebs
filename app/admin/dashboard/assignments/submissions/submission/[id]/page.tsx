@@ -5,6 +5,15 @@ import { getFeedbackBySubmissionId } from "@/lib/actions/feedbackRequests";
 import { getSubmissionById } from "@/lib/actions/submissionRequests";
 import { getOtherUserById } from "@/lib/actions/users/getOtherUser";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 import Video from "next-video";
 import DeleteSubmissionWithConfirmation from "@/components/ui/delete-submission-confirmation";
 
@@ -36,42 +45,51 @@ export default async function Page({ params }: { params: { id: number } }) {
   }
 
   return (
-    <main className="container mx-auto px-4 py-4">
-      <h1 className="text-2xl font-bold mb-4">
-        Submission for&nbsp;
-        <TitleLink
-          title={assignment.name}
-          url={`/home/assignments/assignment/${assignment.id}`}
-        />
-      </h1>
-      <h2 className="text-xl mb-6">
-        By: {user?.first_name ?? user?.username} {user?.last_name}
-      </h2>
-      <div className="mb-4 mt-0">
-        <u>{formatDate(submission.datetime)}</u>
-      </div>
-      <div className="space-y-8">
-        <div>
-          <VideoPlayer id={params.id} />
-        </div>
+    <div className="flex flex-col gap-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            Submission for&nbsp;
+            <TitleLink
+              title={assignment.name}
+              url={`/home/assignments/assignment/${assignment.id}`}
+            />
+          </CardTitle>
+          <CardDescription></CardDescription>
+        </CardHeader>
+        <CardContent>
+          <h2 className="text-xl mb-6">
+            By: {user?.first_name ?? user?.username} {user?.last_name}
+          </h2>
+          <div className="mb-4 mt-0">
+            <u>{formatDate(submission.datetime)}</u>
+          </div>
+          <div className="space-y-8">
+            <div>
+              <VideoPlayer id={params.id} />
+            </div>
 
-        <div className="comment">
-          <p>{submission.comment}</p>
-        </div>
-        <div>
+            <div className="comment">
+              <p>{submission.comment}</p>
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter>
           <DeleteSubmissionWithConfirmation
             submission={submission}
           ></DeleteSubmissionWithConfirmation>
-        </div>
-        <div>
+        </CardFooter>
+      </Card>
+      <Card>
+        <CardContent className="mt-6">
           <FeedbackForm
             initialFeedback={feedback}
             submissionId={submission.id}
             assignment={assignment}
           />
-        </div>
-      </div>
-    </main>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
