@@ -60,7 +60,7 @@ export async function updateUser(
           first_name: formData.get("firstName"),
           last_name: formData.get("lastName"),
           email: formData.get("email"),
-          role: formData.get("role"),
+          role: formData.get("role") || "",
         })
       : passwordSchema.safeParse({
           password: formData.get("password"),

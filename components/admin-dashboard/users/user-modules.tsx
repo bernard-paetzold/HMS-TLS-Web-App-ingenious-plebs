@@ -30,11 +30,15 @@ export async function UserModules({ username }: { username: string }) {
           </div>
         ) : (
           <ul>
-            {response.modules.map((mod, i) => (
-              <Row key={mod.code} noBorder={i === 0}>
-                {mod.code}
-              </Row>
-            ))}
+            {response.modules.length > 0 ? (
+              response.modules.map((mod, i) => (
+                <Row key={mod.code} noBorder={i === 0}>
+                  {mod.code}
+                </Row>
+              ))
+            ) : (
+              <p>No modules</p>
+            )}
           </ul>
         )}
       </CardContent>

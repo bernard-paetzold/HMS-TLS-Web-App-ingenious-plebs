@@ -20,16 +20,20 @@ export async function UserAssignments({ username }: { username: string }) {
       </CardHeader>
       <CardContent>
         <ul>
-          {assignments.map((assignment, i) => (
-            <Row key={assignment.id} noBorder={i === 0}>
-              <Link
-                href={`/admin/dashboard/assignments/${assignment.id}`}
-                className="underline underline-offset-2"
-              >
-                {assignment.name}
-              </Link>
-            </Row>
-          ))}
+          {assignments.length > 0 ? (
+            assignments.map((assignment, i) => (
+              <Row key={assignment.id} noBorder={i === 0}>
+                <Link
+                  href={`/admin/dashboard/assignments/${assignment.id}`}
+                  className="underline underline-offset-2"
+                >
+                  {assignment.name}
+                </Link>
+              </Row>
+            ))
+          ) : (
+            <p>No assignments</p>
+          )}
         </ul>
       </CardContent>
     </Card>

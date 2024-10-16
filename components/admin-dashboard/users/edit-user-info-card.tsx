@@ -93,7 +93,7 @@ export default function EditUserInfoCard({
                 placeholder={user.email}
               />
             </div>
-            {!isSameUser && (
+            {!isSameUser && initRole !== "admin" && (
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="role">Role</Label>
                 {formErrors.fields?.role && (

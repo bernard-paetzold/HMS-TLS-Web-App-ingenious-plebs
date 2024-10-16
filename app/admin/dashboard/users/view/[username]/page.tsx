@@ -44,7 +44,7 @@ async function UserWrapper({ username }: { username: string }) {
   return (
     <div className="flex flex-col gap-4">
       <UserInfo username={username} user={response.user} />
-      <UserModules username={username} />
+      {response.user.role !== "admin" && <UserModules username={username} />}
       {response.user.role === "lecturer" && (
         <UserAssignments username={username} />
       )}
